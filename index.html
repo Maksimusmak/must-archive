@@ -670,6 +670,210 @@ body.theme-all{--red:#ff315a}
 .hero-collage .collage-card:nth-child(3){left:61%!important;top:12%!important;transform:rotate(6deg) scale(.94)!important}
 .hero-collage .collage-card:nth-child(n+4){display:none!important}
 
+
+/* Mobile card overhaul */
+.card-face{
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+.card-front{
+  transform:rotateY(0deg);
+}
+.card-back{
+  transform:rotateY(180deg);
+}
+.mobile-synopsis{
+  display:none;
+}
+.mobile-synopsis-toggle{
+  display:none;
+}
+
+@media(max-width:650px){
+  .grid:not(.list-view){
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+  }
+
+  .card,
+  .card-inner{
+    min-height:0!important;
+    height:auto!important;
+  }
+
+  .card{
+    perspective:none!important;
+  }
+
+  .card-inner{
+    display:block!important;
+    transform:none!important;
+    transform-style:flat!important;
+  }
+
+  .card-face{
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    -webkit-backface-visibility:visible!important;
+    backface-visibility:visible!important;
+  }
+
+  .card-back{
+    display:none!important;
+  }
+
+  .card-front{
+    display:flex!important;
+    flex-direction:column!important;
+  }
+
+  .poster{
+    width:100%!important;
+    aspect-ratio:1/1!important;
+    min-height:0!important;
+    flex:none!important;
+    background-size:cover!important;
+    background-position:center!important;
+  }
+
+  .poster::after{
+    height:42%!important;
+  }
+
+  .poster-title{
+    display:flex!important;
+    flex-direction:column!important;
+    left:10px!important;
+    right:10px!important;
+    bottom:10px!important;
+    font-size:.78rem!important;
+    line-height:1.15!important;
+    overflow:visible!important;
+    white-space:normal!important;
+    text-overflow:clip!important;
+  }
+
+  .poster-title span:first-child{
+    display:block!important;
+    max-width:100%!important;
+    overflow:visible!important;
+    white-space:normal!important;
+    text-overflow:clip!important;
+  }
+
+  .poster-year{
+    display:block!important;
+    margin-top:3px;
+    font-size:.69rem!important;
+  }
+
+  .body{
+    padding:10px!important;
+  }
+
+  .body .meta{
+    display:flex!important;
+    justify-content:space-between!important;
+    gap:6px!important;
+    font-size:.72rem!important;
+  }
+
+  .body .tags{
+    display:none!important;
+  }
+
+  .body .row{
+    display:block!important;
+  }
+
+  .body .row select{
+    width:100%!important;
+  }
+
+  .flip-hint{
+    display:none!important;
+  }
+
+  .mobile-synopsis-toggle{
+    display:block!important;
+    width:100%;
+    margin-top:8px;
+  }
+
+  .mobile-synopsis{
+    display:block;
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height .35s ease,opacity .25s ease,padding .25s ease;
+    padding:0;
+    color:var(--muted);
+    line-height:1.5;
+  }
+
+  .card.synopsis-open .mobile-synopsis{
+    max-height:900px;
+    opacity:1;
+    padding:12px 0 2px;
+  }
+
+  .mobile-synopsis-text{
+    margin-bottom:12px;
+  }
+
+  .mobile-synopsis-actions{
+    display:grid;
+    gap:8px;
+  }
+
+  .grid.list-view{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:12px!important;
+  }
+
+  .grid.list-view .card,
+  .grid.list-view .card-inner{
+    min-height:0!important;
+  }
+
+  .grid.list-view .card-front{
+    display:grid!important;
+    grid-template-columns:112px minmax(0,1fr)!important;
+    align-items:stretch!important;
+  }
+
+  .grid.list-view .poster{
+    aspect-ratio:auto!important;
+    min-height:155px!important;
+    height:100%!important;
+  }
+
+  .grid.list-view .body{
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+  }
+
+  .grid.list-view .mobile-synopsis{
+    grid-column:1/-1;
+  }
+
+  .grid.list-view .poster-title{
+    font-size:.72rem!important;
+  }
+}
+
+@media(max-width:390px){
+  .grid:not(.list-view){
+    grid-template-columns:1fr!important;
+  }
+  .poster{
+    aspect-ratio:1/1!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1057,6 +1261,16 @@ function render(){
             
           </div>
           <div class="flip-hint">Click card for synopsis</div>
+          <button class="btn mobile-synopsis-toggle" type="button" data-mobile-synopsis="${x.id}">Synopsis</button>
+          <div class="mobile-synopsis">
+            <div class="mobile-synopsis-text">${esc(x.synopsis||"No synopsis added yet.")}</div>
+            <div class="mobile-synopsis-actions">
+              ${x.youtube
+                ? `<a class="btn" href="${esc(x.youtube)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Watch trailer</a>`
+                : `<span class="btn disabled" aria-disabled="true">No trailer</span>`}
+              <button class="btn primary" type="button" data-edit="${x.id}">Edit</button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card-face card-back">
@@ -1404,6 +1618,19 @@ $("#confirmDeleteDatabaseBtn").onclick=async()=>{
 };
 
 
+
+document.addEventListener("click",e=>{
+  const toggle=e.target.closest("[data-mobile-synopsis]");
+  if(toggle){
+    e.stopPropagation();
+    const card=document.querySelector(`[data-card="${toggle.dataset.mobileSynopsis}"]`);
+    if(!card)return;
+    const open=card.classList.toggle("synopsis-open");
+    toggle.textContent=open?"Hide synopsis":"Synopsis";
+    return;
+  }
+});
+
 document.addEventListener("click",e=>{
   const edit=e.target.closest("[data-edit]");
   if(edit){
@@ -1435,7 +1662,7 @@ document.addEventListener("click",e=>{
   }
 
   const card=e.target.closest(".card");
-  if(card && !e.target.closest("button,a,select,input,textarea")){
+  if(card && window.innerWidth>650 && !e.target.closest("button,a,select,input,textarea")){
     card.classList.toggle("flipped");
   }
 });
