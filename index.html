@@ -931,6 +931,33 @@ body.theme-all{--red:#ff315a}
   }
 }
 
+
+/* Hero cleanup - remove backdrop square behind artwork */
+.hero-art::before,
+.hero-image::before,
+.hero-cover::before,
+.cover-backdrop,
+.hero-backdrop,
+.hero-art-backdrop{
+    display:none !important;
+    opacity:0 !important;
+    background:none !important;
+    box-shadow:none !important;
+    filter:none !important;
+}
+
+.hero-art,
+.hero-image,
+.hero-cover{
+    background:transparent !important;
+}
+
+.hero-art img,
+.hero-image img,
+.hero-cover img{
+    filter:drop-shadow(0 24px 40px rgba(0,0,0,.45));
+}
+
 </style>
 </head>
 <body>
