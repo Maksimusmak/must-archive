@@ -1,42 +1,30 @@
-# Must Archive — Cloud Sync Version
+# Must Archive — Database Manager Version
 
-## Before uploading
+## Upload
 
-In Supabase:
+Replace your existing `index.html` in GitHub with the new one in this package.
 
-1. Open SQL Editor.
-2. Create a new query.
-3. Paste the contents of `supabase-setup.sql`.
-4. Click Run.
+Your Supabase database is not erased when the website file is replaced.
 
-## Replace the old website
+## Database Manager
 
-1. Extract this ZIP.
-2. In your GitHub repository, delete or overwrite the old `index.html`.
-3. Upload this new `index.html`.
-4. Commit the change.
-5. Wait about 1–2 minutes for GitHub Pages to update.
+After signing in, click **Database Manager**.
 
-## Using the site
+It includes:
 
-1. Click **Sign in**.
-2. Choose **Create account**.
-3. Confirm the email Supabase sends you.
-4. Return to the site and sign in.
-5. Add entries normally.
+- Import CSV
+- Export CSV
+- Download CSV template
+- Drag-and-drop CSV importing
+- Automatic user ID assignment
+- Duplicate-title skipping
 
-The same archive will appear on every device after signing into the same account.
+## CSV fields
 
+The importer expects these columns:
 
-## Starter anime importer
+title, year, category, rating, genres, status, favourite, cover, youtube, synopsis
 
-After signing in, click **Import starter anime** in the top navigation.
+Separate multiple genres with a vertical bar:
 
-The importer:
-- assigns the signed-in user's ID automatically;
-- looks up portrait cover artwork;
-- saves the records into Supabase;
-- skips existing titles to avoid duplicates.
-
-The artwork lookup uses Jikan's public MyAnimeList metadata API. If an artwork
-lookup temporarily fails, the title is still imported and its cover can be edited later.
+Cyberpunk|Action|Sci-Fi
