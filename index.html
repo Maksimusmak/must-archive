@@ -565,6 +565,111 @@ body.theme-all{--red:#ff315a}
   }
 }
 
+
+/* Card image and metadata fixes */
+.poster{
+  position:relative;
+  width:100%;
+  height:100%;
+  min-height:0;
+  aspect-ratio:2/3;
+  background-size:cover!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+  background-color:#0b111b!important;
+}
+.card-face.card-front{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.card-face.card-front .poster{
+  flex:1 1 auto;
+}
+.card-face.card-front .body{
+  flex:0 0 auto;
+  background:linear-gradient(180deg,#121a28,#0d1420);
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.poster::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:34%;
+  background:linear-gradient(transparent,rgba(5,8,14,.94));
+  pointer-events:none;
+}
+.poster-title{
+  z-index:3;
+  bottom:12px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.poster-year{
+  font-family:"Rajdhani",sans-serif;
+  font-size:.78rem;
+  font-weight:600;
+  color:#b8c2d2;
+  letter-spacing:.03em;
+}
+.card-back .back-meta{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  color:var(--muted);
+  font-size:.85rem;
+}
+.btn.disabled,
+.btn[aria-disabled="true"]{
+  opacity:.38;
+  pointer-events:none;
+  cursor:not-allowed;
+  filter:saturate(.35);
+}
+.card-actions{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+@media(max-width:650px){
+  .poster-title{
+    display:flex!important;
+    font-size:.78rem!important;
+    line-height:1.15;
+    bottom:9px;
+    left:9px;
+    right:9px;
+  }
+  .poster-year{
+    display:block!important;
+    font-size:.7rem;
+  }
+  .card,.card-inner{
+    min-height:275px!important;
+  }
+  .poster{
+    aspect-ratio:1/1!important;
+    min-height:0!important;
+  }
+  .body{
+    padding:10px!important;
+  }
+  .meta{
+    font-size:.74rem;
+  }
+  .card-actions{
+    grid-template-columns:1fr;
+  }
+}
+
+
+.hero-collage .collage-card{width:34%!important}
+.hero-collage .collage-card:nth-child(1){left:5%!important;top:12%!important;transform:rotate(-6deg) scale(.94)!important}
+.hero-collage .collage-card:nth-child(2){left:33%!important;top:1%!important;transform:rotate(1deg) scale(1.05)!important;z-index:4}
+.hero-collage .collage-card:nth-child(3){left:61%!important;top:12%!important;transform:rotate(6deg) scale(.94)!important}
+.hero-collage .collage-card:nth-child(n+4){display:none!important}
+
 </style>
 </head>
 <body>
@@ -909,7 +1014,7 @@ function updateAllHeroCollage(){
       .filter(item=>item.category===target)
       .map(item=>String(item.cover||"").trim())
       .filter(url=>/^https?:\/\//i.test(url))
-  )].slice(0,5);
+  )].slice(0,3);
 
   if(!covers.length){
     collage.style.background="radial-gradient(circle at 68% 40%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 42%)";
@@ -937,7 +1042,7 @@ function render(){
       <div class="card-face card-front">
         <div class="poster" style="${x.cover?`background-image:url('${esc(x.cover)}')`:""}">
           <button class="fav ${x.favourite?"on":""}" data-fav="${x.id}">♥</button>
-          <div class="poster-title">${esc(x.title)}</div>
+          <div class="poster-title"><span>${esc(x.title)}</span><span class="poster-year">${x.year||"Year unknown"}</span></div>
         </div>
         <div class="body">
           <div class="meta"><span>${x.year||"—"} · ${esc(x.category)}</span><span class="stars">★ ${Number(x.rating||0).toFixed(1)}</span></div>
@@ -949,16 +1054,20 @@ function render(){
               <option value="completed" ${x.status==="completed"?"selected":""}>Completed</option>
               <option value="paused" ${x.status==="paused"?"selected":""}>Paused</option>
             </select>
-            ${x.youtube?`<a class="btn" href="${esc(x.youtube)}" target="_blank" onclick="event.stopPropagation()">YouTube</a>`:""}
+            
           </div>
           <div class="flip-hint">Click card for synopsis</div>
         </div>
       </div>
       <div class="card-face card-back">
         <h3>${esc(x.title)}</h3>
+        <div class="back-meta"><span>${x.year||"Year unknown"}</span><span>${esc(x.category||"")}</span></div>
         <div class="synopsis">${esc(x.synopsis||"No synopsis added yet.")}</div>
         <div class="card-actions">
           <button class="btn" type="button" data-flip-back="${x.id}">Back</button>
+          ${x.youtube
+            ? `<a class="btn" href="${esc(x.youtube)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Watch trailer</a>`
+            : `<span class="btn disabled" aria-disabled="true">No trailer</span>`}
           <button class="btn primary" type="button" data-edit="${x.id}">Edit</button>
         </div>
       </div>

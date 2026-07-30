@@ -1,18 +1,12 @@
-# MAKS MUST ARCHIVES — Dynamic Category Heroes
+# MAKS MUST ARCHIVES — Card and Hero Fixes
 
-Upload every file in this ZIP to the root of your GitHub repository.
+Upload every file in this ZIP to the root of the GitHub repository.
 
-## Hero behaviour
-
-- The All page keeps `HOMEPAGE-BANNER.jpg`.
-- Anime uses cover URLs from Anime entries.
-- Movies uses cover URLs from Movie entries.
-- TV Shows uses cover URLs from TV entries.
-- Games uses cover URLs from Game entries.
-- Up to five covers are arranged into a cinematic collage.
-- If a section has no usable cover URLs, it shows a subtle themed glow instead.
-- Static category banner files have been removed to reduce loading and package size.
-
-## Blending
-
-The hero artwork now uses a stronger transparent mask on the left, right, top and bottom, plus background-matched gradients to prevent visible rectangular edges.
+Changes:
+- Cover images now fill each card completely with no grey strip
+- Titles are visible on desktop and mobile
+- Years are shown on every card
+- Flipped cards show the year and category
+- Flipped cards include Watch trailer when a YouTube URL exists
+- Missing trailers show a disabled No trailer button
+- Category hero artwork now uses exactly three covers
