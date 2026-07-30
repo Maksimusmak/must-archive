@@ -1,38 +1,42 @@
-# Must Archive
+# Must Archive — Cloud Sync Version
 
-A personal media archive for anime, movies, TV shows and games.
+## Before uploading
 
-## Features
+In Supabase:
 
-- Anime, movie, TV and game categories
-- Search, sorting and filters
-- Ratings
-- Favourites
-- Watch / play status tracking
-- Detail popups
-- YouTube links
-- Add your own titles
-- Browser storage using `localStorage`
-- Responsive mobile layout
-- GitHub Pages ready
+1. Open SQL Editor.
+2. Create a new query.
+3. Paste the contents of `supabase-setup.sql`.
+4. Click Run.
 
-## Upload to GitHub
+## Replace the old website
 
 1. Extract this ZIP.
-2. Upload all files and folders to the root of your repository.
-3. In GitHub, open **Settings → Pages**.
-4. Under **Build and deployment**, choose:
-   - Source: **Deploy from a branch**
-   - Branch: **main**
-   - Folder: **/(root)**
-5. Save.
+2. In your GitHub repository, delete or overwrite the old `index.html`.
+3. Upload this new `index.html`.
+4. Commit the change.
+5. Wait about 1–2 minutes for GitHub Pages to update.
 
-Your site will appear at:
+## Using the site
 
-`https://YOUR-USERNAME.github.io/must-archive/`
+1. Click **Sign in**.
+2. Choose **Create account**.
+3. Confirm the email Supabase sends you.
+4. Return to the site and sign in.
+5. Add entries normally.
 
-## Editing the library
+The same archive will appear on every device after signing into the same account.
 
-The starter titles are in `app.js` inside the `defaultItems` array.
 
-Changes you make through the website are saved in your browser.
+## Starter anime importer
+
+After signing in, click **Import starter anime** in the top navigation.
+
+The importer:
+- assigns the signed-in user's ID automatically;
+- looks up portrait cover artwork;
+- saves the records into Supabase;
+- skips existing titles to avoid duplicates.
+
+The artwork lookup uses Jikan's public MyAnimeList metadata API. If an artwork
+lookup temporarily fails, the title is still imported and its cover can be edited later.
