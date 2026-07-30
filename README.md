@@ -1,11 +1,11 @@
-# MAKS MUST ARCHIVES — Final Clean Hero
+# MAKS MUST ARCHIVES — All Hero Background Fix
 
 Full site package.
 
-Fixed:
-- Removed the large grey rectangular hero background
-- Hero now uses the site's clean blue background
-- Kept the soft red/category glow in the upper-right corner
-- Covers float directly over the background
-- Kept the All-page mascot banner
-- Includes all previous desktop, mobile, archive, login and database features
+Changes:
+- Removed the fixed image container from the All Titles hero
+- Applied HOMEPAGE-BANNER.jpg directly to the hero background
+- Aligned the banner top-center
+- Preserved readable text shading
+- Category pages still use floating cover artwork
+- Includes all previous mobile, archive, login and database features

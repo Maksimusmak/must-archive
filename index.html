@@ -1034,6 +1034,64 @@ body.theme-all{--red:#ff315a}
     url("HOMEPAGE-BANNER.jpg") center/cover no-repeat!important;
 }
 
+
+/* ALL PAGE HERO — use the full banner as the hero background itself */
+.hero[data-theme="all"]{
+  background-image:url("HOMEPAGE-BANNER.jpg")!important;
+  background-repeat:no-repeat!important;
+  background-position:top center!important;
+  background-size:cover!important;
+}
+
+/* Remove the old fixed artwork container on the All page */
+.hero[data-theme="all"] .hero-collage{
+  display:none!important;
+  background:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+
+/* Keep text readable while allowing the full artwork to remain visible */
+.hero[data-theme="all"] .hero-overlay{
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7,11,19,.94) 0%,
+      rgba(7,11,19,.78) 27%,
+      rgba(7,11,19,.32) 48%,
+      rgba(7,11,19,.06) 70%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(7,11,19,.08) 0%,
+      transparent 62%,
+      rgba(7,11,19,.55) 100%
+    )!important;
+}
+
+/* Keep category pages using floating cover artwork */
+.hero:not([data-theme="all"]){
+  background-image:none!important;
+}
+
+@media(max-width:650px){
+  .hero[data-theme="all"]{
+    background-position:top 15% center!important;
+    background-size:auto 100%!important;
+  }
+
+  .hero[data-theme="all"] .hero-overlay{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(7,11,19,.34) 0%,
+        rgba(7,11,19,.62) 48%,
+        rgba(7,11,19,.94) 100%
+      )!important;
+  }
+}
+
 </style>
 </head>
 <body>
