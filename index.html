@@ -7,30 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-let heroParallaxTicking=false;
-function updateHeroParallax(){
-  const hero=$("#hero");
-  if(!hero){heroParallaxTicking=false;return}
-  if(window.innerWidth<=650){
-    hero.style.setProperty("--hero-y","50%");
-  }else{
-    const rect=hero.getBoundingClientRect();
-    const offset=Math.max(-80,Math.min(80,-rect.top*0.10));
-    hero.style.setProperty("--hero-y",`calc(50% + ${offset}px)`);
-  }
-  heroParallaxTicking=false;
-}
-window.addEventListener("scroll",()=>{
-  if(!heroParallaxTicking){
-    heroParallaxTicking=true;
-    requestAnimationFrame(updateHeroParallax);
-  }
-},{passive:true});
-window.addEventListener("resize",updateHeroParallax);
-updateHeroParallax();
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#070b13;--panel:#111827;--panel2:#182234;--text:#f5f7ff;--muted:#9aa6ba;--red:#ff315a;--line:rgba(255,255,255,.1);--gold:#ffc857}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 0,rgba(255,49,90,.15),transparent 30%),var(--bg);color:var(--text);font-family:"Rajdhani",Arial,sans-serif;min-height:100vh}
@@ -116,9 +93,37 @@ body.theme-all{--red:#ff315a}
   .hero p{font-size:.95rem}
 }
 
+
+.auth-splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;min-height:100svh;padding:28px;overflow:auto;background:linear-gradient(90deg,rgba(4,7,13,.98) 0%,rgba(4,7,13,.91) 39%,rgba(4,7,13,.42) 72%,rgba(4,7,13,.58) 100%),url("ANIME-BANNER.jpg") center/cover no-repeat}
+.auth-splash::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 38%,rgba(255,49,90,.22),transparent 34%),linear-gradient(180deg,transparent 55%,#05080f 100%);pointer-events:none}
+.auth-splash.hidden{display:none!important}.splash-panel{position:relative;z-index:1;width:min(1180px,100%);display:grid;grid-template-columns:minmax(0,680px) 1fr;align-items:center;gap:70px}.splash-copy{padding:42px 0}.splash-brand{display:flex;align-items:center;gap:15px;margin-bottom:54px}.splash-brand img{width:54px;height:54px;filter:drop-shadow(0 0 16px rgba(255,49,90,.35))}.splash-brand strong{font-family:"Orbitron",sans-serif;font-size:clamp(1rem,2vw,1.35rem);letter-spacing:.1em}.splash-brand strong span{color:var(--red)}.splash-kicker{font-family:"Orbitron",sans-serif;color:var(--red);font-weight:800;letter-spacing:.16em;font-size:.78rem}.splash-copy h1{font-family:"Orbitron",sans-serif;font-size:clamp(3rem,7vw,6.8rem);line-height:.91;letter-spacing:-.055em;margin:18px 0 24px}.splash-copy h1 span{color:var(--red)}.splash-copy p{max-width:620px;color:#aab4c5;font-size:1.13rem;line-height:1.65}.splash-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}.splash-actions .btn{min-width:150px;padding:14px 22px}.splash-features{position:relative;z-index:1;display:grid;gap:12px;align-self:end;padding-bottom:50px}.splash-feature{padding:16px 18px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(8,13,23,.68);backdrop-filter:blur(12px)}.splash-feature strong{display:block;font-family:"Orbitron",sans-serif;font-size:.78rem;margin-bottom:5px}.splash-feature span{color:var(--muted)}.app-shell.auth-hidden{display:none!important}.auth-mode-switch{margin-top:12px;color:var(--muted);font-size:.88rem}
+@media(max-width:820px){.auth-splash{background-image:linear-gradient(180deg,rgba(4,7,13,.60),rgba(4,7,13,.96) 56%,#05080f),url("ANIME-BANNER.jpg");background-position:68% center;align-items:end}.splash-panel{display:block}.splash-copy{padding:40px 0 22px}.splash-brand{margin-bottom:55vh}.splash-features{display:none}.splash-copy h1{font-size:clamp(2.65rem,15vw,4.8rem)}}
+@media(max-width:520px){.auth-splash{padding:20px}.splash-brand{margin-bottom:42vh}.splash-brand img{width:40px;height:40px}.splash-brand strong{font-size:.8rem}.splash-actions{display:grid;grid-template-columns:1fr 1fr}.splash-actions .btn{min-width:0}}
+
 </style>
 </head>
 <body>
+<section id="authSplash" class="auth-splash">
+  <div class="splash-panel">
+    <div class="splash-copy">
+      <div class="splash-brand"><img src="MAKMADE.svg" alt="MakMade logo"><strong>MAKS <span>MUST ARCHIVES</span></strong></div>
+      <div class="splash-kicker">YOUR PERSONAL MEDIA ARCHIVE</div>
+      <h1>EVERY STORY.<br><span>ONE PLACE.</span></h1>
+      <p>Build a private, cloud-synced collection of the anime, movies, television shows and games that matter to you.</p>
+      <div class="splash-actions">
+        <button id="splashLoginBtn" class="btn primary" type="button">Log in</button>
+        <button id="splashSignupBtn" class="btn" type="button">Create account</button>
+      </div>
+    </div>
+    <div class="splash-features">
+      <div class="splash-feature"><strong>CLOUD SYNC</strong><span>Your archive follows you across every device.</span></div>
+      <div class="splash-feature"><strong>TRACK EVERYTHING</strong><span>Ratings, favourites, progress, trailers and notes.</span></div>
+      <div class="splash-feature"><strong>YOUR COLLECTION</strong><span>A private archive built around your taste.</span></div>
+    </div>
+  </div>
+</section>
+<div id="appShell" class="app-shell auth-hidden">
+
 <header class="top">
   <div class="brand"><img src="MAKMADE.svg" alt="MakMade logo"><div class="logo"><span>MAKS</span> MUST ARCHIVES</div></div>
   <div class="spacer"></div>
@@ -175,16 +180,18 @@ body.theme-all{--red:#ff315a}
   <div id="empty" class="empty hidden">No titles found.</div>
 </main>
 
+</div>
+
 <dialog id="authDialog" class="dialog">
 <form id="authForm" class="modal">
   <button type="button" class="close" data-close="authDialog">×</button>
-  <h2>Sign in to Must Archive</h2>
-  <p style="color:var(--muted)">Use the same email and password on every device.</p>
+  <h2 id="authTitle">Log in to MAKS MUST ARCHIVES</h2>
+  <p id="authIntro" style="color:var(--muted)">Use the same email and password on every device.</p>
   <div class="form">
     <label class="full">Email<input name="email" type="email" required></label>
     <label class="full">Password<input name="password" type="password" minlength="6" required></label>
   </div>
-  <div id="authMessage" class="message"></div>
+  <div id="authMessage" class="message"></div><div id="authModeHelp" class="auth-mode-switch"></div>
   <div class="actions">
     <button type="button" id="signupBtn" class="btn">Create account</button>
     <button type="submit" class="btn primary">Sign in</button>
@@ -337,12 +344,16 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function esc(v=""){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function syncLabel(text){$("#syncLabel").textContent=text}
 function updateAuthUI(){
-  $("#signInBtn").classList.toggle("hidden",!!user);
-  $("#signOutBtn").classList.toggle("hidden",!user);
-  $("#addBtn").classList.toggle("hidden",!user);
-  $("#databaseBtn").classList.toggle("hidden",!user);
-  $("#viewToggle").classList.toggle("hidden",!user);
-  syncLabel(user?`Synced: ${user.email}`:"Not signed in");
+  const signedIn=!!user;
+  $("#authSplash").classList.toggle("hidden",signedIn);
+  $("#appShell").classList.toggle("auth-hidden",!signedIn);
+  document.body.classList.toggle("signed-out",!signedIn);
+  $("#signInBtn").classList.toggle("hidden",signedIn);
+  $("#signOutBtn").classList.toggle("hidden",!signedIn);
+  $("#addBtn").classList.toggle("hidden",!signedIn);
+  $("#databaseBtn").classList.toggle("hidden",!signedIn);
+  $("#viewToggle").classList.toggle("hidden",!signedIn);
+  syncLabel(signedIn?`Synced: ${user.email}`:"Not signed in");
 }
 function fillGenres(){
   const current=$("#genre").value;
@@ -395,10 +406,10 @@ function render(){
       </div>
     </div>
   </article>`).join("");
-  $("#total").textContent=items.length;
-  $("#favs").textContent=items.filter(x=>x.favourite).length;
-  $("#completed").textContent=items.filter(x=>x.status==="completed").length;
-  $("#watchlist").textContent=items.filter(x=>x.status==="must-watch").length;
+  $("#statTotal").textContent=items.length;
+  $("#statFav").textContent=items.filter(x=>x.favourite).length;
+  $("#statDone").textContent=items.filter(x=>x.status==="completed").length;
+  $("#statMust").textContent=items.filter(x=>x.status==="must-watch").length;
 }
 applyCategoryHero(category);
 
@@ -416,26 +427,54 @@ async function session(){
 client.auth.onAuthStateChange(async(_event,s)=>{
   user=s?.user||null;updateAuthUI();await loadItems();
 });
-$("#signInBtn").onclick=()=>$("#authDialog").showModal();
+let authMode="login";
+function openAuth(mode="login"){
+  authMode=mode;
+  const creating=mode==="signup";
+  $("#authTitle").textContent=creating?"Create your MAKS MUST ARCHIVES account":"Log in to MAKS MUST ARCHIVES";
+  $("#authIntro").textContent=creating?"Create an account to begin your private cloud-synced archive.":"Use the same email and password on every device.";
+  $("#authForm").querySelector('button[type="submit"]').textContent=creating?"Create account":"Log in";
+  $("#authModeHelp").textContent=creating?"Enter your details, then press Create account.":"New here? Press Create account to register.";
+  $("#authMessage").className="message";
+  $("#authMessage").textContent="";
+  $("#authDialog").showModal();
+}
+$("#signInBtn").onclick=()=>openAuth("login");
+$("#splashLoginBtn").onclick=()=>openAuth("login");
+$("#splashSignupBtn").onclick=()=>openAuth("signup");
 $("#addBtn").onclick=()=>$("#addDialog").showModal();
-$("#databaseBtn").onclick=()=>{$("#databaseMessage").className="message";$("#databaseMessage").textContent="";$("#databaseDialog").showModal()};$("#importMessage").textContent="Ready to import 8 anime.";$("#importDialog").showModal()};
+$("#databaseBtn").onclick=()=>{$("#databaseMessage").className="message";$("#databaseMessage").textContent="";$("#databaseDialog").showModal()};
 $("#signOutBtn").onclick=async()=>{await client.auth.signOut()};
 $$("[data-close]").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.close).close());
 
 $("#authForm").onsubmit=async e=>{
-  e.preventDefault();const fd=new FormData(e.currentTarget),email=fd.get("email"),password=fd.get("password");
-  $("#authMessage").textContent="Signing in…";
+  e.preventDefault();
+  const fd=new FormData(e.currentTarget);
+  const email=fd.get("email");
+  const password=fd.get("password");
+  $("#authMessage").className="message";
+  $("#authMessage").textContent=authMode==="signup"?"Creating account…":"Signing in…";
+  if(authMode==="signup"){
+    const {error}=await client.auth.signUp({email,password});
+    if(error){$("#authMessage").className="message error";$("#authMessage").textContent=error.message}
+    else{$("#authMessage").className="message ok";$("#authMessage").textContent="Account created. Check your email for the confirmation link, then log in.";authMode="login";$("#authForm").querySelector('button[type="submit"]').textContent="Log in"}
+    return;
+  }
   const {error}=await client.auth.signInWithPassword({email,password});
   if(error){$("#authMessage").className="message error";$("#authMessage").textContent=error.message}
-  else{$("#authMessage").className="message ok";$("#authMessage").textContent="Signed in.";setTimeout(()=>$("#authDialog").close(),500)}
+  else{$("#authMessage").className="message ok";$("#authMessage").textContent="Signed in.";setTimeout(()=>$("#authDialog").close(),350)}
 };
 $("#signupBtn").onclick=async()=>{
-  const fd=new FormData($("#authForm")),email=fd.get("email"),password=fd.get("password");
-  if(!email||!password){$("#authMessage").className="message error";$("#authMessage").textContent="Enter an email and password first.";return}
-  $("#authMessage").textContent="Creating account…";
-  const {error}=await client.auth.signUp({email,password});
-  if(error){$("#authMessage").className="message error";$("#authMessage").textContent=error.message}
-  else{$("#authMessage").className="message ok";$("#authMessage").textContent="Account created. Check your email for the confirmation link, then sign in."}
+  if(authMode!=="signup"){
+    authMode="signup";
+    $("#authTitle").textContent="Create your MAKS MUST ARCHIVES account";
+    $("#authIntro").textContent="Create an account to begin your private cloud-synced archive.";
+    $("#authForm").querySelector('button[type="submit"]').textContent="Create account";
+    $("#authModeHelp").textContent="Already registered? Close this window and choose Log in.";
+    $("#authMessage").textContent="";
+    return;
+  }
+  $("#authForm").requestSubmit();
 };
 $("#addForm").onsubmit=async e=>{
   e.preventDefault();if(!user)return;
@@ -753,9 +792,25 @@ document.addEventListener("change",async e=>{
     if(item){const value=e.target.value;const {error}=await client.from("archive_items").update({status:value}).eq("id",item.id);if(!error){item.status=value;render()}}
   }
 });
-$$(".tab").forEach(b=>b.onclick=()=>{category=b.dataset.category;$$(".tab").forEach(x=>x.classList.toggle("active",x===b));render()});
+$$(".tab").forEach(b=>b.onclick=()=>{category=b.dataset.category;$$(".tab").forEach(x=>x.classList.toggle("active",x===b));applyCategoryHero(category);render()});
 ["search","status","genre","sort"].forEach(id=>document.getElementById(id).addEventListener("input",render));
 session();
+
+let heroParallaxTicking=false;
+function updateHeroParallax(){
+  const hero=$("#hero");
+  if(!hero||!user){heroParallaxTicking=false;return}
+  if(window.innerWidth<=650){hero.style.setProperty("--hero-y","50%")}
+  else{
+    const rect=hero.getBoundingClientRect();
+    const offset=Math.max(-80,Math.min(80,-rect.top*.10));
+    hero.style.setProperty("--hero-y",`calc(50% + ${offset}px)`);
+  }
+  heroParallaxTicking=false;
+}
+window.addEventListener("scroll",()=>{if(!heroParallaxTicking){heroParallaxTicking=true;requestAnimationFrame(updateHeroParallax)}},{passive:true});
+window.addEventListener("resize",updateHeroParallax);
+
 </script>
 </body>
 </html>

@@ -1,21 +1,7 @@
-# MAKS MUST ARCHIVES — Banner Edition
+# MAKS MUST ARCHIVES — Login Splash Edition
 
-Upload all files in this package to the root of your GitHub repository.
+Upload every file in this ZIP to the root of your GitHub repository.
 
-Included:
-- index.html
-- MAKMADE.svg
-- ANIME-BANNER.jpg
-- MOVIES-BANNER.jpg
-- TV-SHOW-BANNER.jpg
-- GAME-BANNER.jpg
+Visitors who are signed out now see only a dedicated full-screen splash page with Log in and Create account buttons. The archive interface remains hidden until Supabase authentication succeeds.
 
-Features:
-- Unique banner, title and intro for each archive category
-- Anime red theme
-- Movies blue theme
-- TV Shows purple theme
-- Games green theme
-- Subtle desktop parallax on scroll
-- Lighter static treatment on phones
-- Existing Supabase, CSV manager, list/tile views, flip cards and editing retained
+All existing features remain included.
