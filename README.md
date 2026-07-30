@@ -1,30 +1,23 @@
-# Must Archive — Database Manager Version
+# MAKS MUST ARCHIVES
+
+Single-file GitHub Pages version with Supabase cloud sync.
+
+## New features
+
+- MakMade SVG logo and MAKS MUST ARCHIVES branding
+- Tile/list view switch
+- Square mobile tiles
+- Flip-card synopsis view
+- Full edit and save support for every archive entry
+- Delete entry support
+- CSV Database Manager
+- Import, export and template download
 
 ## Upload
 
-Replace your existing `index.html` in GitHub with the new one in this package.
+Upload both files to the root of the GitHub repository:
 
-Your Supabase database is not erased when the website file is replaced.
+- index.html
+- MAKMADE.svg
 
-## Database Manager
-
-After signing in, click **Database Manager**.
-
-It includes:
-
-- Import CSV
-- Export CSV
-- Download CSV template
-- Drag-and-drop CSV importing
-- Automatic user ID assignment
-- Duplicate-title skipping
-
-## CSV fields
-
-The importer expects these columns:
-
-title, year, category, rating, genres, status, favourite, cover, youtube, synopsis
-
-Separate multiple genres with a vertical bar:
-
-Cyberpunk|Action|Sci-Fi
+The existing Supabase database remains untouched.
