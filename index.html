@@ -7,7 +7,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+let heroParallaxTicking=false;
+function updateHeroParallax(){
+  const hero=$("#hero");
+  if(!hero){heroParallaxTicking=false;return}
+  if(window.innerWidth<=650){
+    hero.style.setProperty("--hero-y","50%");
+  }else{
+    const rect=hero.getBoundingClientRect();
+    const offset=Math.max(-80,Math.min(80,-rect.top*0.10));
+    hero.style.setProperty("--hero-y",`calc(50% + ${offset}px)`);
+  }
+  heroParallaxTicking=false;
+}
+window.addEventListener("scroll",()=>{
+  if(!heroParallaxTicking){
+    heroParallaxTicking=true;
+    requestAnimationFrame(updateHeroParallax);
+  }
+},{passive:true});
+window.addEventListener("resize",updateHeroParallax);
+updateHeroParallax();
+
+</script>
 <style>
 :root{--bg:#070b13;--panel:#111827;--panel2:#182234;--text:#f5f7ff;--muted:#9aa6ba;--red:#ff315a;--line:rgba(255,255,255,.1);--gold:#ffc857}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 0,rgba(255,49,90,.15),transparent 30%),var(--bg);color:var(--text);font-family:"Rajdhani",Arial,sans-serif;min-height:100vh}
@@ -23,6 +46,76 @@ input,select,textarea{width:100%;background:#0a101a;color:#fff;border:1px solid 
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}.toolbar{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.db-grid{grid-template-columns:1fr}.brand img{width:32px;height:32px}.logo{font-size:.78rem}.grid{grid-template-columns:repeat(2,1fr)}.card,.card-inner{min-height:250px}.poster{aspect-ratio:1/1}.grid.list-view .card,.grid.list-view .card-inner{min-height:155px}.grid.list-view .card-face.card-front{grid-template-columns:110px 1fr}.grid.list-view .poster{min-height:155px}.top{gap:8px}.view-toggle{order:5;width:100%}.view-btn{flex:1}.top{flex-wrap:wrap}.toolbar{grid-template-columns:1fr}.top{padding:12px}.pill{display:none}.hero{padding-top:45px}.form{grid-template-columns:1fr}.form .full{grid-column:auto}}
 @media(max-width:430px){.grid{grid-template-columns:1fr}}
+
+.hero{
+  position:relative;
+  min-height:520px;
+  overflow:hidden;
+  isolation:isolate;
+  background-color:#070b13;
+  background-image:
+    linear-gradient(90deg,rgba(5,9,16,.98) 0%,rgba(5,9,16,.90) 28%,rgba(5,9,16,.38) 58%,rgba(5,9,16,.20) 100%),
+    var(--hero-image,none);
+  background-size:cover;
+  background-position:center var(--hero-y,50%);
+  border-bottom:1px solid var(--line);
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:110px;
+  background:linear-gradient(transparent,var(--bg));
+  z-index:-1;
+}
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 72% 28%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 36%),
+    linear-gradient(180deg,transparent 65%,rgba(4,7,12,.72));
+  pointer-events:none;
+  z-index:-1;
+}
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:690px;
+  padding:84px 0 72px;
+}
+.hero h1 span{color:var(--accent,var(--red))}
+.hero small{color:var(--accent,var(--red))}
+.hero p{max-width:650px}
+.hero[data-theme="all"]{--accent:#ff315a;--hero-image:none}
+.hero[data-theme="anime"]{--accent:#ff315a;--hero-image:url("ANIME-BANNER.jpg")}
+.hero[data-theme="movie"]{--accent:#3d9cff;--hero-image:url("MOVIES-BANNER.jpg")}
+.hero[data-theme="tv"]{--accent:#b06cff;--hero-image:url("TV-SHOW-BANNER.jpg")}
+.hero[data-theme="game"]{--accent:#62d86b;--hero-image:url("GAME-BANNER.jpg")}
+body.theme-anime{--red:#ff315a}
+body.theme-movie{--red:#3d9cff}
+body.theme-tv{--red:#b06cff}
+body.theme-game{--red:#62d86b}
+body.theme-all{--red:#ff315a}
+.filter.active{background:color-mix(in srgb,var(--red) 20%,#111827);border-color:var(--red);color:#fff}
+.btn.primary{background:var(--red)}
+@media(max-width:900px){
+  .hero{min-height:440px;background-position:center}
+  .hero-content{padding:62px 0 56px;max-width:590px}
+}
+@media(max-width:650px){
+  .hero{
+    min-height:auto;
+    background-image:
+      linear-gradient(180deg,rgba(5,9,16,.72),rgba(5,9,16,.96)),
+      var(--hero-image,none);
+    background-position:center center;
+    background-attachment:scroll;
+  }
+  .hero-content{padding:42px 0 40px}
+  .hero h1{font-size:clamp(2.25rem,14vw,4rem)}
+  .hero p{font-size:.95rem}
+}
+
 </style>
 </head>
 <body>
@@ -36,15 +129,19 @@ input,select,textarea{width:100%;background:#0a101a;color:#fff;border:1px solid 
   <button id="addBtn" class="btn primary hidden">+ Add title</button>
 </header>
 
-<section class="hero">
-  <small>YOUR CLOUD-SYNCED MEDIA DATABASE</small>
-  <h1>CLASSIC STORIES.<br><span>ONE ARCHIVE.</span></h1>
-  <p>Sign into the same account on your phone, computer or tablet. New entries, favourites, ratings and statuses are stored in Supabase and load on every device.</p>
-  <div class="stats">
-    <div class="stat"><strong id="total">0</strong><span>Total titles</span></div>
-    <div class="stat"><strong id="favs">0</strong><span>Favourites</span></div>
-    <div class="stat"><strong id="completed">0</strong><span>Completed</span></div>
-    <div class="stat"><strong id="watchlist">0</strong><span>Must watch</span></div>
+
+<section id="hero" class="hero" data-theme="all">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <small id="heroKicker">YOUR CLOUD-SYNCED MEDIA DATABASE</small>
+    <h1 id="heroTitle">CLASSIC STORIES.<br><span>ONE ARCHIVE.</span></h1>
+    <p id="heroIntro">Sign into the same account on your phone, computer or tablet. New entries, favourites, ratings and statuses are stored in Supabase and load on every device.</p>
+    <div class="stats">
+      <div><b id="statTotal">0</b><span>Total titles</span></div>
+      <div><b id="statFav">0</b><span>Favourites</span></div>
+      <div><b id="statDone">0</b><span>Completed</span></div>
+      <div><b id="statMust">0</b><span>Must watch</span></div>
+    </div>
   </div>
 </section>
 
@@ -183,7 +280,58 @@ const SUPABASE_URL="https://dpawdwhbfjrihiucshuh.supabase.co";
 const SUPABASE_KEY="sb_publishable_o6D4JJsNyuik4Kw4AZShfg_VZ0eyUmS";
 const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
+
 let user=null,items=[],category="all",viewMode=localStorage.getItem("mustArchiveView")||"tile";
+
+const CATEGORY_HERO={
+  all:{
+    theme:"all",
+    kicker:"YOUR CLOUD-SYNCED MEDIA DATABASE",
+    title:'CLASSIC STORIES.<br><span>ONE ARCHIVE.</span>',
+    intro:"Everything you love, all in one place. Browse your anime, movies, television shows and games from a single personal archive."
+  },
+  anime:{
+    theme:"anime",
+    kicker:"ANIMATION • OVA • CYBERPUNK • CLASSICS",
+    title:'ANIME<br><span>ARCHIVE.</span>',
+    intro:"Explore timeless anime classics and modern masterpieces. Track your watchlist, ratings, favourites and discoveries."
+  },
+  movie:{
+    theme:"movie",
+    kicker:"CINEMA • ACTION • SCI-FI • CULT CLASSICS",
+    title:'MOVIE<br><span>ARCHIVE.</span>',
+    intro:"From explosive blockbusters to unforgettable cult films, keep every movie worth revisiting in one cinematic collection."
+  },
+  tv:{
+    theme:"tv",
+    kicker:"SERIES • SCI-FI • DRAMA • ADVENTURE",
+    title:'TV SHOW<br><span>ARCHIVE.</span>',
+    intro:"Follow unforgettable crews, characters and long-form stories. Keep every season and series organised across your personal archive."
+  },
+  game:{
+    theme:"game",
+    kicker:"GAMES • WORLDS • MISSIONS • MEMORIES",
+    title:'GAME<br><span>ARCHIVE.</span>',
+    intro:"From stealth classics to sprawling adventures, preserve the games, worlds and experiences that mattered most."
+  }
+};
+
+function applyCategoryHero(key){
+  const data=CATEGORY_HERO[key]||CATEGORY_HERO.all;
+  const hero=$("#hero");
+  hero.dataset.theme=data.theme;
+  document.body.className=document.body.className
+    .split(/\s+/)
+    .filter(c=>!c.startsWith("theme-"))
+    .concat(`theme-${data.theme}`)
+    .join(" ")
+    .trim();
+  $("#heroKicker").textContent=data.kicker;
+  $("#heroTitle").innerHTML=data.title;
+  $("#heroIntro").textContent=data.intro;
+  document.title=`${data.title.replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim()} — MAKS MUST ARCHIVES`;
+}
+
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 
 function esc(v=""){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
@@ -252,6 +400,8 @@ function render(){
   $("#completed").textContent=items.filter(x=>x.status==="completed").length;
   $("#watchlist").textContent=items.filter(x=>x.status==="must-watch").length;
 }
+applyCategoryHero(category);
+
 async function loadItems(){
   if(!user){items=[];fillGenres();render();return}
   syncLabel("Syncing…");
@@ -579,6 +729,16 @@ $("#deleteEntryBtn").onclick=async()=>{
     $("#editDialog").close();
   }
 };
+
+document.addEventListener("click",e=>{
+  const cat=e.target.closest("[data-cat]");
+  if(cat){
+    category=cat.dataset.cat;
+    document.querySelectorAll("[data-cat]").forEach(x=>x.classList.toggle("active",x===cat));
+    applyCategoryHero(category);
+    render();
+  }
+});
 
 document.addEventListener("click",async e=>{
   const b=e.target.closest("[data-fav]");if(!b)return;

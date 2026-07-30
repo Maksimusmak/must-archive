@@ -1,23 +1,21 @@
-# MAKS MUST ARCHIVES
+# MAKS MUST ARCHIVES — Banner Edition
 
-Single-file GitHub Pages version with Supabase cloud sync.
+Upload all files in this package to the root of your GitHub repository.
 
-## New features
-
-- MakMade SVG logo and MAKS MUST ARCHIVES branding
-- Tile/list view switch
-- Square mobile tiles
-- Flip-card synopsis view
-- Full edit and save support for every archive entry
-- Delete entry support
-- CSV Database Manager
-- Import, export and template download
-
-## Upload
-
-Upload both files to the root of the GitHub repository:
-
+Included:
 - index.html
 - MAKMADE.svg
+- ANIME-BANNER.jpg
+- MOVIES-BANNER.jpg
+- TV-SHOW-BANNER.jpg
+- GAME-BANNER.jpg
 
-The existing Supabase database remains untouched.
+Features:
+- Unique banner, title and intro for each archive category
+- Anime red theme
+- Movies blue theme
+- TV Shows purple theme
+- Games green theme
+- Subtle desktop parallax on scroll
+- Lighter static treatment on phones
+- Existing Supabase, CSV manager, list/tile views, flip cards and editing retained
