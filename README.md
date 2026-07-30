@@ -1,21 +1,11 @@
-# MAKS MUST ARCHIVES — No Vignette Edition
+# MAKS MUST ARCHIVES — Solid Hero Fix
 
-This is the full site package.
+This is the complete site.
 
-Change made:
-- Removed the radial vignette
-- Removed the coloured haze
-- Removed side darkening
-- Kept only a light top and bottom fade
-
-All existing features remain included:
-- Login splash
-- Supabase sync
-- Database Manager
-- CSV import/export
-- Delete entire archive
-- Desktop flip cards
-- Mobile expandable synopsis
-- Tile/list views
-- Dynamic category cover heroes
-- Homepage mascot banner
+Fixed:
+- Removed the actual rectangular background from the dynamic category collage
+- Covers now float directly over the solid hero background
+- Kept the red/burgundy ambient gradient on the right
+- Kept subtle cover shadows for depth
+- Left the ALL-page homepage mascot banner unchanged
+- Includes all prior mobile and archive features

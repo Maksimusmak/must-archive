@@ -958,6 +958,37 @@ body.theme-all{--red:#ff315a}
     filter:drop-shadow(0 24px 40px rgba(0,0,0,.45));
 }
 
+
+/* Definitive hero fix:
+   remove the rectangular collage backdrop while keeping the page's
+   ambient category gradient on the far right. */
+.hero:not([data-theme="all"]) .hero-collage{
+  background:transparent!important;
+  background-color:transparent!important;
+}
+
+/* Covers float directly over the hero background. */
+.hero:not([data-theme="all"]) .hero-collage::before,
+.hero:not([data-theme="all"]) .hero-collage::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+
+/* Retain depth without creating another rectangular panel. */
+.hero:not([data-theme="all"]) .hero-collage .collage-card{
+  box-shadow:
+    0 28px 65px rgba(0,0,0,.58),
+    0 0 35px color-mix(in srgb,var(--accent) 8%,transparent)!important;
+}
+
+/* Keep the ALL-page mascot artwork treatment unchanged. */
+.hero[data-theme="all"] .hero-collage{
+  background:
+    linear-gradient(90deg,rgba(7,11,19,.05),transparent 54%),
+    url("HOMEPAGE-BANNER.jpg") center/cover no-repeat!important;
+}
+
 </style>
 </head>
 <body>
