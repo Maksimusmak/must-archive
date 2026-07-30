@@ -874,6 +874,63 @@ body.theme-all{--red:#ff315a}
   }
 }
 
+
+/* Clean hero treatment — vignette removed */
+.hero-overlay{
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(7,11,19,.06) 0%,
+      transparent 10%,
+      transparent 84%,
+      rgba(7,11,19,.16) 100%
+    )!important;
+}
+
+.hero-feather{
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(7,11,19,.04) 0%,
+      transparent 12%,
+      transparent 84%,
+      rgba(7,11,19,.14) 100%
+    )!important;
+}
+
+.hero::after{
+  background:linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 78%,
+    #070b13 100%
+  )!important;
+}
+
+@media(max-width:650px){
+  .hero-overlay{
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(7,11,19,.08) 0%,
+        transparent 12%,
+        transparent 76%,
+        rgba(7,11,19,.18) 100%
+      )!important;
+  }
+
+  .hero-feather{
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(7,11,19,.06) 0%,
+        transparent 10%,
+        transparent 78%,
+        rgba(7,11,19,.16) 100%
+      )!important;
+  }
+}
+
 </style>
 </head>
 <body>

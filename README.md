@@ -1,15 +1,21 @@
-# MAKS MUST ARCHIVES — Mobile Card Overhaul
+# MAKS MUST ARCHIVES — No Vignette Edition
 
-Upload every file in this ZIP to the root of your GitHub repository.
+This is the full site package.
 
-Mobile changes:
-- Desktop flip animation is disabled on phones
-- Cards use a collapsible Synopsis button instead
-- Synopsis expands the full card height and can be collapsed
-- Tile view uses square cover images
-- List view remains compact and readable
-- Mirrored/reversed title issue is removed
-- Trailer and Edit controls appear inside the expanded synopsis area
-- Single-column layout is used on very narrow phones
+Change made:
+- Removed the radial vignette
+- Removed the coloured haze
+- Removed side darkening
+- Kept only a light top and bottom fade
 
-Desktop keeps the original flip-card interaction.
+All existing features remain included:
+- Login splash
+- Supabase sync
+- Database Manager
+- CSV import/export
+- Delete entire archive
+- Desktop flip cards
+- Mobile expandable synopsis
+- Tile/list views
+- Dynamic category cover heroes
+- Homepage mascot banner
