@@ -29,6 +29,7 @@ input,select,textarea{width:100%;background:#0a101a;color:#fff;border:1px solid 
   <div id="syncLabel" class="pill">Checking account…</div>
   <button id="signInBtn" class="btn">Sign in</button>
   <button id="signOutBtn" class="btn hidden">Sign out</button>
+  <button id="importBtn" class="btn hidden">↓ Import starter anime</button>
   <button id="addBtn" class="btn primary hidden">+ Add title</button>
 </header>
 
@@ -91,6 +92,24 @@ input,select,textarea{width:100%;background:#0a101a;color:#fff;border:1px solid 
 </form>
 </dialog>
 
+
+<dialog id="importDialog" class="dialog">
+<div class="modal">
+  <button type="button" class="close" data-close="importDialog">×</button>
+  <h2>Import starter anime</h2>
+  <p style="color:var(--muted);line-height:1.6">
+    This adds the classic anime we discussed, looks up portrait cover artwork,
+    and saves everything directly to your signed-in Supabase account.
+    Existing titles are skipped.
+  </p>
+  <div id="importMessage" class="message"></div>
+  <div class="actions">
+    <button type="button" class="btn" data-close="importDialog">Cancel</button>
+    <button type="button" id="runImportBtn" class="btn primary">Import library</button>
+  </div>
+</div>
+</dialog>
+
 <dialog id="addDialog" class="dialog">
 <form id="addForm" class="modal">
   <button type="button" class="close" data-close="addDialog">×</button>
@@ -124,6 +143,7 @@ function updateAuthUI(){
   $("#signInBtn").classList.toggle("hidden",!!user);
   $("#signOutBtn").classList.toggle("hidden",!user);
   $("#addBtn").classList.toggle("hidden",!user);
+  $("#importBtn").classList.toggle("hidden",!user);
   syncLabel(user?`Synced: ${user.email}`:"Not signed in");
 }
 function fillGenres(){
@@ -184,6 +204,7 @@ client.auth.onAuthStateChange(async(_event,s)=>{
 });
 $("#signInBtn").onclick=()=>$("#authDialog").showModal();
 $("#addBtn").onclick=()=>$("#addDialog").showModal();
+$("#importBtn").onclick=()=>{$("#importMessage").className="message";$("#importMessage").textContent="Ready to import 8 anime.";$("#importDialog").showModal()};
 $("#signOutBtn").onclick=async()=>{await client.auth.signOut()};
 $$("[data-close]").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.close).close());
 
@@ -211,6 +232,99 @@ $("#addForm").onsubmit=async e=>{
   if(error){$("#addMessage").className="message error";$("#addMessage").textContent=error.message}
   else{$("#addMessage").className="message ok";$("#addMessage").textContent="Saved to the cloud.";e.currentTarget.reset();await loadItems();setTimeout(()=>$("#addDialog").close(),500)}
 };
+
+const STARTER_ANIME=[
+  {title:"Cyber City Oedo 808",year:1990,rating:5,genres:["Cyberpunk","Action","Sci-Fi"],synopsis:"Three convicted criminals are recruited by the Cyber Police to hunt dangerous offenders across the futuristic city of Oedo.",search:"Cyber City Oedo 808"},
+  {title:"Goku: Midnight Eye II",year:1989,rating:4.5,genres:["Cyberpunk","Action","Sci-Fi"],synopsis:"Private detective Goku Furinji uses a powerful cybernetic eye and staff while investigating bizarre high-technology crimes.",search:"Goku Midnight Eye"},
+  {title:"Appleseed",year:1988,rating:5,genres:["Cyberpunk","Sci-Fi","Action"],synopsis:"Deunan Knute and her cyborg partner Briareos navigate the utopian city of Olympus while confronting threats beneath its peaceful surface.",search:"Appleseed 1988"},
+  {title:"Ariel",year:1989,rating:4,genres:["Mecha","Comedy","Sci-Fi"],synopsis:"Three young women pilot the giant robot ARIEL to defend Earth from an alien invasion undermined by bureaucracy and budget problems.",search:"Ariel Visual"},
+  {title:"Venus Wars",year:1989,rating:4.5,genres:["Sci-Fi","War","Action"],synopsis:"A young motorcycle racer is pulled into a brutal conflict after an invading army attacks a human colony on Venus.",search:"Venus Wars"},
+  {title:"Megazone 23",year:1985,rating:5,genres:["Cyberpunk","Mecha","Sci-Fi"],synopsis:"A motorcycle-loving teenager uncovers the truth about his city, its virtual idol and the enormous spacecraft carrying its population.",search:"Megazone 23"},
+  {title:"Bubblegum Crisis",year:1987,rating:5,genres:["Cyberpunk","Mecha","Action"],synopsis:"The armored Knight Sabers battle rogue biomechanical Boomers and corporate corruption in the neon streets of MegaTokyo.",search:"Bubblegum Crisis"},
+  {title:"Robot Carnival",year:1987,rating:4.5,genres:["Anthology","Sci-Fi","Fantasy"],synopsis:"Nine celebrated animators present a visually inventive anthology of stories exploring robots, people and imagination.",search:"Robot Carnival"}
+];
+
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const normaliseTitle=value=>String(value||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+
+async function findAnimeArtwork(item){
+  try{
+    const url=`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(item.search)}&limit=8`;
+    const response=await fetch(url);
+    if(!response.ok)throw new Error(`Artwork lookup returned ${response.status}`);
+    const payload=await response.json();
+    const candidates=payload.data||[];
+    const wanted=normaliseTitle(item.search);
+    const selected=
+      candidates.find(x=>normaliseTitle(x.title_english)===wanted)||
+      candidates.find(x=>normaliseTitle(x.title)===wanted)||
+      candidates.find(x=>Number(x.year)===Number(item.year))||
+      candidates[0];
+    if(!selected)return {};
+    return {
+      cover:selected.images?.jpg?.large_image_url||selected.images?.jpg?.image_url||"",
+      youtube:selected.trailer?.url||`https://www.youtube.com/results?search_query=${encodeURIComponent(item.title+" trailer")}`
+    };
+  }catch(error){
+    console.warn("Artwork lookup failed for",item.title,error);
+    return {
+      cover:"",
+      youtube:`https://www.youtube.com/results?search_query=${encodeURIComponent(item.title+" trailer")}`
+    };
+  }
+}
+
+$("#runImportBtn").onclick=async()=>{
+  if(!user)return;
+  const button=$("#runImportBtn"),message=$("#importMessage");
+  button.disabled=true;
+  const existing=new Set(items.map(x=>normaliseTitle(x.title)));
+  let added=0,skipped=0,failed=0;
+
+  for(let i=0;i<STARTER_ANIME.length;i++){
+    const seed=STARTER_ANIME[i];
+    message.className="message";
+    message.textContent=`Finding cover and importing ${i+1} of ${STARTER_ANIME.length}: ${seed.title}…`;
+
+    if(existing.has(normaliseTitle(seed.title))){
+      skipped++;
+      continue;
+    }
+
+    const media=await findAnimeArtwork(seed);
+    const row={
+      user_id:user.id,
+      title:seed.title,
+      year:seed.year,
+      category:"anime",
+      rating:seed.rating,
+      genres:seed.genres,
+      status:"must-watch",
+      favourite:false,
+      cover:media.cover,
+      youtube:media.youtube,
+      synopsis:seed.synopsis
+    };
+
+    const {error}=await client.from("archive_items").insert(row);
+    if(error){
+      console.error(error);
+      failed++;
+    }else{
+      added++;
+      existing.add(normaliseTitle(seed.title));
+    }
+
+    // Be polite to the free metadata service and avoid rate limiting.
+    await wait(500);
+  }
+
+  await loadItems();
+  button.disabled=false;
+  message.className=failed?"message error":"message ok";
+  message.textContent=`Finished: ${added} added, ${skipped} already existed${failed?`, ${failed} failed`:""}.`;
+};
+
 document.addEventListener("click",async e=>{
   const b=e.target.closest("[data-fav]");if(!b)return;
   const item=items.find(x=>String(x.id)===b.dataset.fav);if(!item)return;
