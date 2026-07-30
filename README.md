@@ -1,11 +1,11 @@
-# MAKS MUST ARCHIVES — Solid Hero Fix
+# MAKS MUST ARCHIVES — Final Clean Hero
 
-This is the complete site.
+Full site package.
 
 Fixed:
-- Removed the actual rectangular background from the dynamic category collage
-- Covers now float directly over the solid hero background
-- Kept the red/burgundy ambient gradient on the right
-- Kept subtle cover shadows for depth
-- Left the ALL-page homepage mascot banner unchanged
-- Includes all prior mobile and archive features
+- Removed the large grey rectangular hero background
+- Hero now uses the site's clean blue background
+- Kept the soft red/category glow in the upper-right corner
+- Covers float directly over the background
+- Kept the All-page mascot banner
+- Includes all previous desktop, mobile, archive, login and database features

@@ -989,6 +989,51 @@ body.theme-all{--red:#ff315a}
     url("HOMEPAGE-BANNER.jpg") center/cover no-repeat!important;
 }
 
+
+/* FINAL HERO BACKGROUND FIX
+   Remove the large grey hero rectangle entirely.
+   The hero now sits on the site's blue background with only an ambient
+   category-coloured glow in the right corner. */
+.hero{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+}
+
+.hero-feather{
+  display:none!important;
+  background:none!important;
+  opacity:0!important;
+}
+
+.hero-overlay{
+  display:block!important;
+  background:
+    radial-gradient(
+      circle at 98% 18%,
+      color-mix(in srgb,var(--accent) 18%,transparent) 0%,
+      color-mix(in srgb,var(--accent) 9%,transparent) 24%,
+      transparent 48%
+    )!important;
+}
+
+.hero::after{
+  background:linear-gradient(to bottom,transparent 0%,transparent 80%,var(--bg) 100%)!important;
+}
+
+/* Covers remain completely independent of the background. */
+.hero:not([data-theme="all"]) .hero-collage{
+  background:none!important;
+  background-color:transparent!important;
+}
+
+/* Preserve the custom homepage mascot only on the All tab. */
+.hero[data-theme="all"] .hero-collage{
+  background:
+    linear-gradient(90deg,rgba(7,11,19,.03),transparent 55%),
+    url("HOMEPAGE-BANNER.jpg") center/cover no-repeat!important;
+}
+
 </style>
 </head>
 <body>
