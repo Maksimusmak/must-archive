@@ -1,12 +1,12 @@
-# MAKS MUST ARCHIVES — Homepage Mascot Banner
+# MAKS MUST ARCHIVES — Perfect Banner Blend
 
-Upload every file in this ZIP to the root of your GitHub repository.
+This version fixes the visible rectangular edges around category and homepage banners.
 
-## Homepage behaviour
+Changes:
+- The artwork itself is masked to transparency on all four sides
+- Left and right fades are stronger and wider
+- Feather colours now exactly match the site background (#070b13)
+- Bottom fade blends directly into the archive controls and cards
+- Mobile keeps a simpler vertical fade
 
-- The All page uses archive cover URLs to build a feathered collage when suitable covers exist.
-- If no usable cover URLs are present, it now displays `HOMEPAGE-BANNER.jpg`.
-- The homepage banner includes a subtle cinematic drift on desktop.
-- Mobile uses a darker, static version for readability and performance.
-
-All previous Supabase, editing, CSV, delete, authentication and category features remain included.
+Upload all files in this ZIP to the root of the GitHub repository.
