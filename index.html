@@ -1594,6 +1594,87 @@ body[data-theme="misc"],
   }
 }
 
+
+/* =========================================================
+   THEME-AWARE MEDIA BUTTONS + HERO SPACING
+   ========================================================= */
+
+.tab[data-category="all"].active{
+  color:#ffffff!important;
+  background:rgba(255,255,255,.13)!important;
+  border-color:rgba(255,255,255,.22)!important;
+}
+
+.tab[data-category="anime"].active{
+  color:#ff4f78!important;
+  background:rgba(255,79,120,.16)!important;
+  border-color:rgba(255,79,120,.28)!important;
+}
+
+.tab[data-category="movie"].active{
+  color:#4da3ff!important;
+  background:rgba(77,163,255,.16)!important;
+  border-color:rgba(77,163,255,.28)!important;
+}
+
+.tab[data-category="tv"].active{
+  color:#b084ff!important;
+  background:rgba(176,132,255,.16)!important;
+  border-color:rgba(176,132,255,.28)!important;
+}
+
+.tab[data-category="game"].active{
+  color:#5de06c!important;
+  background:rgba(93,224,108,.16)!important;
+  border-color:rgba(93,224,108,.28)!important;
+}
+
+.tab[data-category="misc"].active{
+  color:#f0b84b!important;
+  background:rgba(240,184,75,.16)!important;
+  border-color:rgba(240,184,75,.28)!important;
+}
+
+/* Pull media-type controls much closer to the bottom of the hero. */
+.hero{
+  margin-bottom:0!important;
+}
+
+.hero + .shell,
+.hero + main,
+.hero + section{
+  margin-top:0!important;
+}
+
+.archive-controls{
+  margin-top:0!important;
+}
+
+/* The original hero carried extra vertical room below its content.
+   Reduce it without moving the artwork itself. */
+.hero-inner{
+  min-height:520px!important;
+}
+.hero-content{
+  min-height:520px!important;
+  padding-bottom:24px!important;
+}
+
+/* Keep the All page slightly taller because it uses a full background artwork. */
+.hero[data-theme="all"] .hero-inner,
+.hero[data-theme="all"] .hero-content{
+  min-height:560px!important;
+}
+
+@media(max-width:650px){
+  .hero-inner,
+  .hero-content,
+  .hero[data-theme="all"] .hero-inner,
+  .hero[data-theme="all"] .hero-content{
+    min-height:auto!important;
+  }
+}
+
 </style>
 </head>
 <body>

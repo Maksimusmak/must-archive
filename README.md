@@ -1,11 +1,14 @@
-# MAKS MUST ARCHIVES — Grain Removal + Mobile Polish
+# MAKS MUST ARCHIVES — Theme Buttons + Hero Spacing + Homepage Copy
 
 Changes:
-- Removed the hero-grain element that caused the faint discoloured hero rectangle
-- Header brand now shows MAKS in white and MUST ARCHIVES in the accent colour
-- On mobile, media categories get their own full-width row
-- Mobile categories no longer horizontally scroll; they use a compact 3 x 2 layout
-- Filters and Tile/List controls move to the row below
-- Filters and Tile/List controls are exactly the same height
-- Progress animation is clipped strictly inside the filled progress portion
-- Includes the Misc category and all previous archive features
+- Every active media-type button now uses its own theme colour consistently
+- Games now highlights green
+- Anime pink/red
+- Movies blue
+- TV Shows purple
+- Misc gold
+- Reduced the large vertical gap between the hero and media-type controls
+- Homepage headline changed from CLASSIC STORIES / ONE ARCHIVE to:
+  MAKS
+  MUST ARCHIVES
+- All previous features remain intact
