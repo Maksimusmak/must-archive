@@ -1357,6 +1357,56 @@ body.theme-all{--red:#ff315a}
  background:linear-gradient(to right,rgba(0,0,0,0),rgba(65,20,40,.55));
 }
 
+
+/* Open, clean category hero — no visible background edges */
+.hero:not([data-theme="all"]){
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8,13,23,.12) 0%,
+      transparent 18%,
+      transparent 84%,
+      rgba(8,13,23,.12) 100%
+    )!important;
+  overflow:visible!important;
+}
+
+/* Remove all reddish/radial backdrop treatments that reveal a box */
+.hero:not([data-theme="all"])::before,
+.hero:not([data-theme="all"])::after,
+.hero:not([data-theme="all"]) .hero-overlay,
+.hero:not([data-theme="all"]) .hero-feather,
+.hero:not([data-theme="all"]) .hero-collage::before,
+.hero:not([data-theme="all"]) .hero-collage::after{
+  background:none!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+
+/* Keep the existing playing-card layout, just lower it slightly */
+.hero:not([data-theme="all"]) .hero-collage{
+  transform:translateY(34px)!important;
+  overflow:visible!important;
+}
+
+/* Preserve cover size and individual rotations/placement */
+.hero:not([data-theme="all"]) .collage-card{
+  margin:0!important;
+}
+
+/* Ensure the header remains cleanly separated from the artwork */
+.top{
+  position:relative;
+  z-index:20;
+  background:rgba(7,11,19,.98)!important;
+}
+
+@media(max-width:650px){
+  .hero:not([data-theme="all"]) .hero-collage{
+    transform:translateY(22px)!important;
+  }
+}
+
 </style>
 </head>
 <body>

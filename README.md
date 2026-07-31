@@ -1,17 +1,11 @@
-# MAKS MUST ARCHIVES — Collection Progress + Mobile UX Polish
+# MAKS MUST ARCHIVES — Open Clean Hero
 
-Upload all files in this ZIP to the root of your GitHub repository.
+Full site package.
 
-## New
-- Replaced the old hero statistics with a Collection Progress bar
-- Progress changes with the selected category
-- Displays percentage and completed/total titles
-- Smooth animated progress fill
-
-## Mobile
-- Filters are collapsed by default behind a Filters button
-- Tile/List controls moved beside the category controls
-- Reduced hero height and wasted vertical space
-- Tightened typography, margins and card spacing
-- Search and filter panel expands into a compact two-column layout
-- Desktop layout and desktop card flipping remain intact
+Changes:
+- Removed the reddish radial/category background gradient
+- Removed visible rectangular hero edges
+- Kept the clean dark blue site background
+- Lowered category cover artwork slightly below the header
+- Preserved existing playing-card layout, sizing and rotations
+- Kept all progress, mobile, filters and archive features
