@@ -1696,6 +1696,61 @@ body.theme-misc{
   background:radial-gradient(circle at 90% 0,rgba(240,184,75,.15),transparent 30%),var(--bg)!important;
 }
 
+
+/* MakMade footer */
+.site-footer{
+  width:min(1400px,calc(100% - 40px));
+  margin:64px auto 0;
+  padding:26px 0 34px;
+  border-top:1px solid rgba(255,255,255,.09);
+  color:#718096;
+  font-size:12px;
+}
+.site-footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.footer-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+.footer-mark{
+  width:30px;
+  height:30px;
+  border:2px solid #fff;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  color:#fff;
+}
+.footer-mark svg{width:19px;height:19px;display:block}
+.footer-copy strong{color:#d8deea;font-weight:700}
+.footer-note{margin-top:4px;color:#566174}
+.footer-top{
+  border:0;
+  background:transparent;
+  color:var(--accent);
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+  padding:8px 0;
+}
+.footer-top:hover{filter:brightness(1.18)}
+@media(max-width:650px){
+  .site-footer{
+    width:calc(100% - 28px);
+    margin-top:38px;
+    padding-bottom:28px;
+  }
+  .site-footer-inner{align-items:flex-start}
+  .footer-note{max-width:230px}
+}
+
 </style>
 </head>
 <body>
@@ -1924,6 +1979,24 @@ body.theme-misc{
   <div class="actions"><button class="btn primary">Save to cloud</button></div>
 </form>
 </dialog>
+
+
+<footer class="site-footer" id="siteFooter">
+  <div class="site-footer-inner">
+    <div class="footer-brand">
+      <div class="footer-mark" aria-label="MakMade logo">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 15.5 7.8 8l4.2 5.1L16.2 8 21 15.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="footer-copy">
+        <strong>© <span id="copyrightYear"></span> MakMade. All rights reserved.</strong>
+        <div class="footer-note">MAKS MUST ARCHIVES · Your personal media archive.</div>
+      </div>
+    </div>
+    <button class="footer-top" id="backToTop" type="button">Back to top ↑</button>
+  </div>
+</footer>
 
 <script>
 const SUPABASE_URL="https://dpawdwhbfjrihiucshuh.supabase.co";
@@ -2652,6 +2725,13 @@ function updateHeroParallax(){
 }
 window.addEventListener("scroll",()=>{if(!heroParallaxTicking){heroParallaxTicking=true;requestAnimationFrame(updateHeroParallax)}},{passive:true});
 window.addEventListener("resize",updateHeroParallax);
+
+
+const copyrightYear=document.getElementById("copyrightYear");
+if(copyrightYear) copyrightYear.textContent=new Date().getFullYear();
+document.getElementById("backToTop")?.addEventListener("click",()=>{
+  window.scrollTo({top:0,behavior:"smooth"});
+});
 
 </script>
 </body>
