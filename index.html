@@ -1451,6 +1451,18 @@ body.theme-all{--red:#ff315a}
   }
 }
 
+
+/* Misc category */
+body[data-theme="misc"],
+.hero[data-theme="misc"]{
+  --accent:#f0b84b;
+}
+.tab[data-category="misc"].active{
+  color:#ffd37a!important;
+  background:rgba(240,184,75,.14)!important;
+  border-color:rgba(240,184,75,.24)!important;
+}
+
 </style>
 </head>
 <body>
@@ -1517,6 +1529,7 @@ body.theme-all{--red:#ff315a}
       <button class="tab" data-category="movie">Movies</button>
       <button class="tab" data-category="tv">TV Shows</button>
       <button class="tab" data-category="game">Games</button>
+      <button class="tab" data-category="misc">Misc</button>
     </div>
     <div class="mobile-quick-controls">
       <button id="mobileFilterToggle" class="btn filter-toggle" type="button" aria-expanded="false" aria-controls="filterPanel">
@@ -1600,7 +1613,8 @@ body.theme-all{--red:#ff315a}
   <div class="form">
     <label>Title<input name="title" required></label>
     <label>Year<input name="year" type="number" min="1900" max="2100"></label>
-    <label>Category<select name="category"><option value="anime">Anime</option><option value="movie">Movie</option><option value="tv">TV show</option><option value="game">Game</option></select></label>
+    <label>Category<select name="category"><option value="anime">Anime</option><option value="movie">Movie</option><option value="tv">TV show</option><option value="game">Game</option>
+          <option value="misc">Misc</option></select></label>
     <label>Rating<input name="rating" type="number" min="0" max="5" step=".5"></label>
     <label>Status<select name="status"><option value="must-watch">Must watch</option><option value="watching">Watching / Playing</option><option value="completed">Completed</option><option value="paused">Paused</option></select></label>
     <label>Favourite<select name="favourite"><option value="false">No</option><option value="true">Yes</option></select></label>
@@ -1666,7 +1680,8 @@ body.theme-all{--red:#ff315a}
   <div class="form">
     <label>Title<input name="title" required></label>
     <label>Year<input name="year" type="number" min="1900" max="2100"></label>
-    <label>Category<select name="category"><option value="anime">Anime</option><option value="movie">Movie</option><option value="tv">TV show</option><option value="game">Game</option></select></label>
+    <label>Category<select name="category"><option value="anime">Anime</option><option value="movie">Movie</option><option value="tv">TV show</option><option value="game">Game</option>
+          <option value="misc">Misc</option></select></label>
     <label>Rating<input name="rating" type="number" min="0" max="5" step=".5" value="4"></label>
     <label class="full">Genres<input name="genres" placeholder="Action, Sci-Fi, Cyberpunk"></label>
     <label class="full">Cover image URL<input name="cover" placeholder="https://…"></label>
@@ -1838,7 +1853,7 @@ function updateCollectionProgress(){
     anime:"ANIME PROGRESS",
     movie:"MOVIE PROGRESS",
     tv:"TV PROGRESS",
-    game:"GAME PROGRESS"
+    game:"GAME PROGRESS",misc:"MISC PROGRESS"
   };
   const noun=total===1?"title":"titles";
 
