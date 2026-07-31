@@ -1962,6 +1962,25 @@ body.theme-misc{
   }
 }
 
+
+/* Archiva size adjustment: 20% larger than the original mascot size */
+.hero[data-theme="all"] .home-mascot{
+  width:min(57.6vw,912px)!important;
+}
+
+@media(max-width:900px) and (orientation:landscape){
+  .hero[data-theme="all"] .home-mascot{
+    width:min(56.4vw,672px)!important;
+  }
+}
+
+/* Keep portrait mobile hidden */
+@media(max-width:650px) and (orientation:portrait){
+  .hero[data-theme="all"] .home-mascot{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
