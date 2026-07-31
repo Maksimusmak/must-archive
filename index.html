@@ -7,7 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+/* Seamless redesign: keep both desktop and mobile view buttons synchronized. */
+function ensureDesktopQuickControls(){
+  const quick=document.querySelector(".mobile-quick-controls");
+  if(!quick)return;
+  quick.classList.add("desktop-quick-controls");
+}
+ensureDesktopQuickControls();
+
+</script>
 <style>
 :root{--bg:#070b13;--panel:#111827;--panel2:#182234;--text:#f5f7ff;--muted:#9aa6ba;--red:#ff315a;--line:rgba(255,255,255,.1);--gold:#ffc857}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 0,rgba(255,49,90,.15),transparent 30%),var(--bg);color:var(--text);font-family:"Rajdhani",Arial,sans-serif;min-height:100vh}
@@ -1338,116 +1347,379 @@ body.theme-all{--red:#ff315a}
 }
 
 
-/* Hero overflow fix */
-.hero,.hero-collage,.hero-art,.hero-artwork{
- overflow:visible!important;
- clip-path:none!important;
- -webkit-clip-path:none!important;
- mask:none!important;
- -webkit-mask:none!important;
-}
-.hero-collage::after{
- content:"";
- position:absolute;
- top:-8%;
- bottom:-8%;
- right:-220px;
- width:240px;
- pointer-events:none;
- background:linear-gradient(to right,rgba(0,0,0,0),rgba(65,20,40,.55));
+/* =========================================================
+   SEAMLESS HERO REDESIGN
+   One continuous page canvas — no banner/card container.
+   ========================================================= */
+
+:root{
+  --page-bg:#070b13;
+  --page-bg-soft:#0a101b;
 }
 
+html,
+body,
+.app,
+main,
+.shell{
+  background:var(--page-bg)!important;
+}
 
-/* Open, clean category hero — no visible background edges */
-.hero:not([data-theme="all"]){
-  background:
-    linear-gradient(
-      180deg,
-      rgba(8,13,23,.12) 0%,
-      transparent 18%,
-      transparent 84%,
-      rgba(8,13,23,.12) 100%
-    )!important;
+body{
+  min-height:100vh;
+}
+
+/* Header remains a slim independent navigation surface. */
+.top{
+  position:sticky!important;
+  top:0;
+  z-index:100;
+  min-height:62px;
+  background:rgba(7,11,19,.94)!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important;
+  backdrop-filter:blur(18px);
+}
+
+/* The hero is no longer visually a container. */
+.hero{
+  position:relative!important;
+  width:100%!important;
+  min-height:570px!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
   overflow:visible!important;
+  isolation:visible!important;
 }
 
-/* Remove all reddish/radial backdrop treatments that reveal a box */
-.hero:not([data-theme="all"])::before,
-.hero:not([data-theme="all"])::after,
-.hero:not([data-theme="all"]) .hero-overlay,
-.hero:not([data-theme="all"]) .hero-feather,
-.hero:not([data-theme="all"]) .hero-collage::before,
-.hero:not([data-theme="all"]) .hero-collage::after{
+.hero::before,
+.hero::after,
+.hero-overlay,
+.hero-feather{
+  content:none!important;
+  display:none!important;
+  opacity:0!important;
   background:none!important;
   background-image:none!important;
+  border:0!important;
   box-shadow:none!important;
+  filter:none!important;
+  -webkit-mask:none!important;
+  mask:none!important;
 }
 
-/* Keep the existing playing-card layout, just lower it slightly */
-.hero:not([data-theme="all"]) .hero-collage{
-  transform:translateY(34px)!important;
+.hero-inner{
+  position:relative!important;
+  width:min(1440px,calc(100% - 48px))!important;
+  min-height:570px!important;
+  margin:0 auto!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
   overflow:visible!important;
 }
 
-/* Preserve cover size and individual rotations/placement */
-.hero:not([data-theme="all"]) .collage-card{
+/* Left-side editorial content floats directly on the page. */
+.hero-content{
+  position:relative!important;
+  z-index:10!important;
+  width:min(570px,44%)!important;
+  min-height:570px!important;
+  padding:92px 0 56px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  background:transparent!important;
+}
+
+.hero small{
+  margin-bottom:14px!important;
+}
+
+.hero h1{
+  margin:0 0 18px!important;
+  max-width:560px;
+  line-height:.91!important;
+  letter-spacing:-.045em!important;
+}
+
+.hero p{
+  max-width:560px!important;
   margin:0!important;
 }
 
-/* Ensure the header remains cleanly separated from the artwork */
-.top{
-  position:relative;
-  z-index:20;
-  background:rgba(7,11,19,.98)!important;
+/* Floating cover artwork — no visual wrapper. */
+.hero-collage{
+  position:absolute!important;
+  z-index:4!important;
+  top:54px!important;
+  right:-42px!important;
+  bottom:auto!important;
+  left:auto!important;
+  width:min(760px,58vw)!important;
+  height:460px!important;
+  display:block!important;
+  overflow:visible!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  filter:none!important;
+  opacity:1!important;
+  transform:none!important;
+  clip-path:none!important;
+  -webkit-clip-path:none!important;
+  mask:none!important;
+  -webkit-mask:none!important;
 }
 
-@media(max-width:650px){
-  .hero:not([data-theme="all"]) .hero-collage{
-    transform:translateY(22px)!important;
+.hero-collage::before,
+.hero-collage::after{
+  content:none!important;
+  display:none!important;
+}
+
+.hero-collage .collage-card{
+  position:absolute!important;
+  width:34%!important;
+  aspect-ratio:2/3!important;
+  border-radius:18px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  background:#0b111d!important;
+  box-shadow:
+    0 32px 80px rgba(0,0,0,.58),
+    0 8px 28px rgba(0,0,0,.35)!important;
+  transform-origin:center center!important;
+}
+
+.hero-collage .collage-card img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  display:block!important;
+}
+
+/* Preserve the playing-card arrangement. */
+.hero-collage .collage-card:nth-child(1){
+  left:0!important;
+  top:74px!important;
+  transform:rotate(-6deg) scale(.94)!important;
+  z-index:2!important;
+}
+.hero-collage .collage-card:nth-child(2){
+  left:31%!important;
+  top:0!important;
+  transform:rotate(1.5deg) scale(1.05)!important;
+  z-index:4!important;
+}
+.hero-collage .collage-card:nth-child(3){
+  left:62%!important;
+  top:72px!important;
+  transform:rotate(6deg) scale(.94)!important;
+  z-index:2!important;
+}
+.hero-collage .collage-card:nth-child(n+4){
+  display:none!important;
+}
+
+/* ALL page continues to use its supplied full-width artwork. */
+.hero[data-theme="all"]{
+  min-height:620px!important;
+  background-image:
+    linear-gradient(90deg,
+      rgba(7,11,19,.96) 0%,
+      rgba(7,11,19,.82) 29%,
+      rgba(7,11,19,.28) 54%,
+      rgba(7,11,19,.04) 74%),
+    linear-gradient(180deg,
+      rgba(7,11,19,.06) 0%,
+      transparent 68%,
+      var(--page-bg) 100%),
+    url("HOMEPAGE-BANNER.jpg")!important;
+  background-position:top center!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+}
+.hero[data-theme="all"] .hero-inner,
+.hero[data-theme="all"] .hero-content{
+  min-height:620px!important;
+}
+.hero[data-theme="all"] .hero-collage{
+  display:none!important;
+}
+
+/* Progress module, refined to match the mock-up. */
+.collection-progress{
+  width:min(540px,100%)!important;
+  margin-top:26px!important;
+  padding:17px 18px 16px!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  border-radius:13px!important;
+  background:rgba(7,11,19,.44)!important;
+  box-shadow:0 18px 45px rgba(0,0,0,.16)!important;
+  backdrop-filter:blur(12px);
+}
+
+/* Controls feel connected to the same page canvas. */
+.archive-controls,
+.filter-panel{
+  background:transparent!important;
+}
+
+.archive-controls{
+  margin-top:4px!important;
+}
+
+.filter-panel{
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-radius:12px!important;
+  background:rgba(11,17,29,.82)!important;
+  box-shadow:none!important;
+}
+
+/* Desktop: place view controls beside categories, like the approved mock-up. */
+@media(min-width:651px){
+  .archive-controls{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+  }
+
+  .mobile-quick-controls{
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+  }
+
+  #mobileFilterToggle{
+    display:none!important;
+  }
+
+  #mobileViewToggle{
+    display:flex!important;
+  }
+
+  #viewToggle{
+    display:none!important;
   }
 }
 
+/* Mobile designer pass. */
+@media(max-width:900px){
+  .hero-inner{
+    width:min(100% - 30px,900px)!important;
+  }
 
-/* Final hero transparency fix */
-.hero:not([data-theme="all"]) .hero-collage{
-  background:transparent!important;
-  background-color:transparent!important;
-  background-image:none!important;
-  box-shadow:none!important;
-  border:none!important;
-  opacity:1!important;
-  overflow:visible!important;
-  -webkit-mask-image:none!important;
-  mask-image:none!important;
-  -webkit-mask:none!important;
-  mask:none!important;
-  transform:translateY(34px)!important;
+  .hero-content{
+    width:48%!important;
+  }
+
+  .hero-collage{
+    right:-80px!important;
+    width:62vw!important;
+  }
 }
-.hero:not([data-theme="all"]) .hero-collage::before,
-.hero:not([data-theme="all"]) .hero-collage::after,
-.hero:not([data-theme="all"]) .hero-feather,
-.hero:not([data-theme="all"]) .hero-overlay,
-.hero:not([data-theme="all"])::before,
-.hero:not([data-theme="all"])::after{
-  content:none!important;
-  display:none!important;
-  background:none!important;
-  background-image:none!important;
-  box-shadow:none!important;
-  opacity:0!important;
-}
-.hero:not([data-theme="all"]){
-  background:transparent!important;
-  background-color:transparent!important;
-  box-shadow:none!important;
-  border:none!important;
-}
-.hero:not([data-theme="all"]) .collage-card{
-  box-shadow:0 28px 65px rgba(0,0,0,.52)!important;
-}
+
 @media(max-width:650px){
-  .hero:not([data-theme="all"]) .hero-collage{
-    transform:translateY(22px)!important;
+  .top{
+    min-height:54px!important;
+  }
+
+  .hero,
+  .hero[data-theme="all"]{
+    min-height:auto!important;
+  }
+
+  .hero-inner,
+  .hero[data-theme="all"] .hero-inner{
+    width:100%!important;
+    min-height:auto!important;
+    padding:0 14px!important;
+  }
+
+  .hero-content,
+  .hero[data-theme="all"] .hero-content{
+    width:100%!important;
+    min-height:auto!important;
+    padding:30px 0 24px!important;
+    justify-content:flex-end!important;
+  }
+
+  .hero:not([data-theme="all"]){
+    padding-top:218px!important;
+  }
+
+  .hero-collage{
+    top:18px!important;
+    right:-24px!important;
+    width:92vw!important;
+    height:245px!important;
+  }
+
+  .hero-collage .collage-card{
+    width:31%!important;
+    border-radius:12px!important;
+  }
+
+  .hero-collage .collage-card:nth-child(1){
+    left:7%!important;
+    top:43px!important;
+  }
+  .hero-collage .collage-card:nth-child(2){
+    left:34%!important;
+    top:9px!important;
+  }
+  .hero-collage .collage-card:nth-child(3){
+    left:62%!important;
+    top:43px!important;
+  }
+
+  .hero[data-theme="all"]{
+    background-position:top center!important;
+    background-size:auto 365px!important;
+    padding-top:235px!important;
+  }
+
+  .hero[data-theme="all"] .hero-content{
+    background:linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(7,11,19,.84) 17%,
+      var(--page-bg) 48%
+    )!important;
+    margin:0 -14px!important;
+    padding-left:14px!important;
+    padding-right:14px!important;
+  }
+
+  .hero h1{
+    font-size:clamp(2.25rem,13vw,3.5rem)!important;
+  }
+
+  .hero p{
+    max-width:100%!important;
+  }
+
+  .collection-progress{
+    margin-top:16px!important;
+    padding:12px 13px!important;
+  }
+
+  .archive-controls{
+    margin-top:8px!important;
+  }
+
+  .filter-panel{
+    background:rgba(11,17,29,.95)!important;
   }
 }
 
