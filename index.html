@@ -1767,6 +1767,82 @@ body.theme-misc{
   object-fit:contain!important;
 }
 
+
+/* =========================================================
+   ARCHIVA HOMEPAGE MASCOT
+   Uses the exact supplied ARCHIVA-MASCOT.png.
+   ========================================================= */
+
+/* All page: remove the old banner JPG and use the page gradient/background only. */
+.hero[data-theme="all"]{
+  background-image:none!important;
+  background-color:transparent!important;
+  position:relative!important;
+  overflow:visible!important;
+}
+
+/* Position the mascot to the right, matching the supplied placement example. */
+.home-mascot{
+  display:none;
+}
+
+.hero[data-theme="all"] .home-mascot{
+  display:block;
+  position:absolute;
+  z-index:2;
+  right:2.5%;
+  bottom:18px;
+  width:min(48vw,760px);
+  height:auto;
+  object-fit:contain;
+  object-position:right bottom;
+  pointer-events:none;
+  user-select:none;
+  filter:drop-shadow(0 24px 42px rgba(0,0,0,.36));
+}
+
+.hero[data-theme="all"] .hero-content{
+  position:relative;
+  z-index:3;
+}
+
+/* Mobile portrait: hide mascot entirely as requested. */
+@media(max-width:650px) and (orientation:portrait){
+  .hero[data-theme="all"] .home-mascot{
+    display:none!important;
+  }
+}
+
+/* On mobile landscape, keep it smaller and pushed right. */
+@media(max-width:900px) and (orientation:landscape){
+  .hero[data-theme="all"] .home-mascot{
+    width:min(47vw,560px);
+    right:-1%;
+    bottom:8px;
+  }
+}
+
+/* =========================================================
+   MISC PAGE
+   Behaves exactly like Anime / Movies / TV / Games:
+   transparent hero + floating cover collage.
+   ========================================================= */
+.hero[data-theme="misc"] .hero-collage{
+  display:block!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+
+.hero[data-theme="misc"] .home-mascot{
+  display:none!important;
+}
+
+/* Ensure Misc never inherits the All-page static hero artwork. */
+.hero[data-theme="misc"]{
+  background-image:none!important;
+  background-color:transparent!important;
+}
+
 </style>
 </head>
 <body>
@@ -1807,7 +1883,8 @@ body.theme-misc{
   <div id="heroCollage" class="hero-collage" aria-hidden="true"></div>
   <div class="hero-feather" aria-hidden="true"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-content">
+  <img class="home-mascot" src="ARCHIVA-MASCOT.png" alt="Archiva mascot">
+    <div class="hero-content">
     <small id="heroKicker">YOUR CLOUD-SYNCED MEDIA DATABASE</small>
     <h1 id="heroTitle">MAKS<br><span>MUST ARCHIVES</span></h1>
     <p id="heroIntro">Sign into the same account on your phone, computer or tablet. New entries, favourites, ratings and statuses are stored in Supabase and load on every device.</p>
