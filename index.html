@@ -1727,6 +1727,58 @@ body,.app,main,.shell{background:#070b13!important}
  }
 }
 
+
+/* Page-level themed ambient glow */
+html{background:#070b13!important}
+
+body{
+  --page-glow:255,46,93;
+  background:
+    radial-gradient(circle at 84% 10%,
+      rgba(var(--page-glow),.14) 0%,
+      rgba(var(--page-glow),.075) 20%,
+      rgba(var(--page-glow),.03) 38%,
+      rgba(var(--page-glow),0) 64%),
+    #070b13!important;
+}
+
+body:has(.hero[data-theme="all"]){--page-glow:255,46,93}
+body:has(.hero[data-theme="anime"]){--page-glow:255,79,120}
+body:has(.hero[data-theme="movie"]){--page-glow:77,163,255}
+body:has(.hero[data-theme="tv"]){--page-glow:176,132,255}
+body:has(.hero[data-theme="game"]){--page-glow:93,224,108}
+body:has(.hero[data-theme="misc"]){--page-glow:240,184,75}
+
+.app,main,.shell{background:transparent!important}
+
+.hero:not([data-theme="all"]){
+  background:none!important;
+  background-color:transparent!important;
+  background-image:none!important;
+}
+
+.hero[data-theme="all"]{
+  background:url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") top center / cover no-repeat!important;
+  background-color:transparent!important;
+}
+
+.hero-grain,.hero-feather,.hero-overlay{background:none!important}
+
+@media(max-width:650px){
+  body{
+    background:
+      radial-gradient(circle at 76% 5%,
+        rgba(var(--page-glow),.12) 0%,
+        rgba(var(--page-glow),.055) 24%,
+        rgba(var(--page-glow),0) 58%),
+      #070b13!important;
+  }
+
+  .hero[data-theme="all"]{
+    background:url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") top center / auto 100% no-repeat!important;
+  }
+}
+
 </style>
 </head>
 <body>
