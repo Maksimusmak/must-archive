@@ -1719,16 +1719,14 @@ body.theme-misc{
   min-width:0;
 }
 .footer-mark{
-  width:30px;
-  height:30px;
-  border:2px solid #fff;
-  border-radius:50%;
+  width:34px;
+  height:34px;
   display:grid;
   place-items:center;
   flex:0 0 auto;
   color:#fff;
 }
-.footer-mark svg{width:19px;height:19px;display:block}
+.footer-mark svg{width:34px;height:34px;display:block}
 .footer-copy strong{color:#d8deea;font-weight:700}
 .footer-note{margin-top:4px;color:#566174}
 .footer-top{
@@ -1908,7 +1906,7 @@ body.theme-misc{
     <label class="full">Genres<input name="genres" placeholder="Action, Sci-Fi, Cyberpunk"></label>
     <label class="full">Cover image URL<input name="cover"></label>
     <label class="full">YouTube URL<input name="youtube"></label>
-    <label class="full">Synopsis<textarea name="synopsis" rows="6"></textarea></label>
+    <label class="full">More<textarea name="More" rows="6"></textarea></label>
   </div>
   <div id="editMessage" class="message"></div>
   <div class="actions">
@@ -1973,7 +1971,7 @@ body.theme-misc{
     <label class="full">Genres<input name="genres" placeholder="Action, Sci-Fi, Cyberpunk"></label>
     <label class="full">Cover image URL<input name="cover" placeholder="https://…"></label>
     <label class="full">YouTube URL<input name="youtube" placeholder="https://youtube.com/…"></label>
-    <label class="full">Synopsis<textarea name="synopsis" rows="5"></textarea></label>
+    <label class="full">More<textarea name="More" rows="5"></textarea></label>
   </div>
   <div id="addMessage" class="message"></div>
   <div class="actions"><button class="btn primary">Save to cloud</button></div>
@@ -2196,7 +2194,7 @@ function render(){
             
           </div>
           <div class="flip-hint">Click card for synopsis</div>
-          <button class="btn mobile-synopsis-toggle" type="button" data-mobile-synopsis="${x.id}">Synopsis</button>
+          <button class="btn mobile-synopsis-toggle" type="button" data-mobile-synopsis="${x.id}">More</button>
           <div class="mobile-synopsis">
             <div class="mobile-synopsis-text">${esc(x.synopsis||"No synopsis added yet.")}</div>
             <div class="mobile-synopsis-actions">
@@ -2211,7 +2209,7 @@ function render(){
       <div class="card-face card-back">
         <h3>${esc(x.title)}</h3>
         <div class="back-meta"><span>${x.year||"Year unknown"}</span><span>${esc(x.category||"")}</span></div>
-        <div class="synopsis">${esc(x.synopsis||"No synopsis added yet.")}</div>
+        <div class="More">${esc(x.synopsis||"No synopsis added yet.")}</div>
         <div class="card-actions">
           <button class="btn" type="button" data-flip-back="${x.id}">Back</button>
           ${x.youtube
@@ -2334,7 +2332,7 @@ $("#addForm").onsubmit=async e=>{
   e.preventDefault();if(!user)return;
   const fd=new FormData(e.currentTarget);
   $("#addMessage").textContent="Saving…";
-  const row={user_id:user.id,title:fd.get("title").trim(),year:Number(fd.get("year"))||null,category:fd.get("category"),rating:Number(fd.get("rating"))||0,genres:fd.get("genres").split(",").map(x=>x.trim()).filter(Boolean),status:"must-watch",favourite:false,cover:fd.get("cover").trim(),youtube:fd.get("youtube").trim(),synopsis:fd.get("synopsis").trim()};
+  const row={user_id:user.id,title:fd.get("title").trim(),year:Number(fd.get("year"))||null,category:fd.get("category"),rating:Number(fd.get("rating"))||0,genres:fd.get("genres").split(",").map(x=>x.trim()).filter(Boolean),status:"must-watch",favourite:false,cover:fd.get("cover").trim(),youtube:fd.get("youtube").trim(),synopsis:fd.get("More").trim()};
   const {error}=await client.from("archive_items").insert(row);
   if(error){$("#addMessage").className="message error";$("#addMessage").textContent=error.message}
   else{$("#addMessage").className="message ok";$("#addMessage").textContent="Saved to the cloud.";e.currentTarget.reset();await loadItems();setTimeout(()=>$("#addDialog").close(),500)}
@@ -2343,7 +2341,7 @@ $("#addForm").onsubmit=async e=>{
 
 const CSV_FIELDS=[
   "title","year","category","rating","genres","status","favourite",
-  "cover","youtube","synopsis"
+  "cover","youtube","More"
 ];
 
 function csvEscape(value){
@@ -2599,7 +2597,7 @@ document.addEventListener("click",e=>{
     const card=document.querySelector(`[data-card="${toggle.dataset.mobileSynopsis}"]`);
     if(!card)return;
     const open=card.classList.toggle("synopsis-open");
-    toggle.textContent=open?"Hide synopsis":"Synopsis";
+    toggle.textContent=open?"Hide synopsis":"More";
     return;
   }
 });
@@ -2654,7 +2652,7 @@ $("#editForm").onsubmit=async e=>{
     genres:fd.get("genres").split(",").map(x=>x.trim()).filter(Boolean),
     cover:fd.get("cover").trim(),
     youtube:fd.get("youtube").trim(),
-    synopsis:fd.get("synopsis").trim()
+    synopsis:fd.get("More").trim()
   };
   $("#editMessage").className="message";
   $("#editMessage").textContent="Saving changes…";
