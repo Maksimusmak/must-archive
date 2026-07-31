@@ -1,9 +1,8 @@
-# MAKS MUST ARCHIVES — Archiva Mascot Homepage
+# MAKS MUST ARCHIVES — Archiva V2 + Misc Hero Fix
 
 Changes:
-- Replaced the homepage banner image treatment with the supplied ARCHIVA-MASCOT.png
-- Mascot is positioned on the right side of the All/Home hero
-- Mascot is hidden on mobile portrait
-- Mobile landscape keeps a smaller mascot
-- Misc now behaves like Anime / Movies / TV Shows / Games and uses floating cover artwork
-- Kept the themed page gradient, footer, official MakMade logo, mobile More button and all prior functionality
+- Removed <div class="hero-overlay"></div> from the hero markup
+- Replaced mascot with supplied ARCHIVA-MASCOT-ver2.png
+- Mascot is restricted to the All/Home page only
+- Misc now uses the same floating cover hero system as Anime, Movies, TV Shows and Games
+- Mobile portrait still hides the homepage mascot

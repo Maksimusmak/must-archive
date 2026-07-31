@@ -1770,7 +1770,7 @@ body.theme-misc{
 
 /* =========================================================
    ARCHIVA HOMEPAGE MASCOT
-   Uses the exact supplied ARCHIVA-MASCOT.png.
+   Uses the exact supplied ARCHIVA-MASCOT-ver2.png.
    ========================================================= */
 
 /* All page: remove the old banner JPG and use the page gradient/background only. */
@@ -1843,6 +1843,57 @@ body.theme-misc{
   background-color:transparent!important;
 }
 
+
+/* =========================================================
+   ARCHIVA V2 + MISC HERO FIX
+   ========================================================= */
+
+/* Overlay removed from markup; defensive fallback */
+.hero-overlay{
+  display:none!important;
+}
+
+/* Mascot must only ever appear on the ALL/Home page */
+.home-mascot{
+  display:none!important;
+}
+
+.hero[data-theme="all"] .home-mascot{
+  display:block!important;
+}
+
+/* Every category page, including Misc, uses floating cover artwork */
+.hero:not([data-theme="all"]) .home-mascot{
+  display:none!important;
+}
+
+.hero[data-theme="misc"] .hero-collage{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+
+/* Explicitly preserve the same three-card playing-card layout for Misc */
+.hero[data-theme="misc"] .hero-collage .collage-card:nth-child(1),
+.hero[data-theme="misc"] .hero-collage .collage-card:nth-child(2),
+.hero[data-theme="misc"] .hero-collage .collage-card:nth-child(3){
+  display:block!important;
+}
+
+/* Homepage uses the new mascot PNG */
+.hero[data-theme="all"] .home-mascot{
+  content:url("ARCHIVA-MASCOT-ver2.png");
+}
+
+/* Mobile portrait keeps mascot hidden */
+@media(max-width:650px) and (orientation:portrait){
+  .hero[data-theme="all"] .home-mascot{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1882,8 +1933,7 @@ body.theme-misc{
   <div id="heroArt" class="hero-art" aria-hidden="true"></div>
   <div id="heroCollage" class="hero-collage" aria-hidden="true"></div>
   <div class="hero-feather" aria-hidden="true"></div>
-  <div class="hero-overlay"></div>
-  <img class="home-mascot" src="ARCHIVA-MASCOT.png" alt="Archiva mascot">
+<img class="home-mascot" src="ARCHIVA-MASCOT-ver2.png" alt="Archiva mascot">
     <div class="hero-content">
     <small id="heroKicker">YOUR CLOUD-SYNCED MEDIA DATABASE</small>
     <h1 id="heroTitle">MAKS<br><span>MUST ARCHIVES</span></h1>
