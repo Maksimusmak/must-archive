@@ -1,14 +1,8 @@
-# MAKS MUST ARCHIVES — Theme Buttons + Hero Spacing + Homepage Copy
+# MAKS MUST ARCHIVES — Homepage Copy Fix
 
-Changes:
-- Every active media-type button now uses its own theme colour consistently
-- Games now highlights green
-- Anime pink/red
-- Movies blue
-- TV Shows purple
-- Misc gold
-- Reduced the large vertical gap between the hero and media-type controls
-- Homepage headline changed from CLASSIC STORIES / ONE ARCHIVE to:
-  MAKS
-  MUST ARCHIVES
-- All previous features remain intact
+The ALL-page hero headline now reads:
+
+MAKS
+MUST ARCHIVES
+
+This replaces all remaining CLASSIC STORIES / ONE ARCHIVE references in the site.
