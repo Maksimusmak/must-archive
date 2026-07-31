@@ -1407,6 +1407,50 @@ body.theme-all{--red:#ff315a}
   }
 }
 
+
+/* Final hero transparency fix */
+.hero:not([data-theme="all"]) .hero-collage{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border:none!important;
+  opacity:1!important;
+  overflow:visible!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  -webkit-mask:none!important;
+  mask:none!important;
+  transform:translateY(34px)!important;
+}
+.hero:not([data-theme="all"]) .hero-collage::before,
+.hero:not([data-theme="all"]) .hero-collage::after,
+.hero:not([data-theme="all"]) .hero-feather,
+.hero:not([data-theme="all"]) .hero-overlay,
+.hero:not([data-theme="all"])::before,
+.hero:not([data-theme="all"])::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  opacity:0!important;
+}
+.hero:not([data-theme="all"]){
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  border:none!important;
+}
+.hero:not([data-theme="all"]) .collage-card{
+  box-shadow:0 28px 65px rgba(0,0,0,.52)!important;
+}
+@media(max-width:650px){
+  .hero:not([data-theme="all"]) .hero-collage{
+    transform:translateY(22px)!important;
+  }
+}
+
 </style>
 </head>
 <body>
