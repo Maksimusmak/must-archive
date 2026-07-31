@@ -1,11 +1,17 @@
-# MAKS MUST ARCHIVES — All Hero Background Fix
+# MAKS MUST ARCHIVES — Collection Progress + Mobile UX Polish
 
-Full site package.
+Upload all files in this ZIP to the root of your GitHub repository.
 
-Changes:
-- Removed the fixed image container from the All Titles hero
-- Applied HOMEPAGE-BANNER.jpg directly to the hero background
-- Aligned the banner top-center
-- Preserved readable text shading
-- Category pages still use floating cover artwork
-- Includes all previous mobile, archive, login and database features
+## New
+- Replaced the old hero statistics with a Collection Progress bar
+- Progress changes with the selected category
+- Displays percentage and completed/total titles
+- Smooth animated progress fill
+
+## Mobile
+- Filters are collapsed by default behind a Filters button
+- Tile/List controls moved beside the category controls
+- Reduced hero height and wasted vertical space
+- Tightened typography, margins and card spacing
+- Search and filter panel expands into a compact two-column layout
+- Desktop layout and desktop card flipping remain intact

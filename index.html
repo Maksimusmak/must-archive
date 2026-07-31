@@ -1092,6 +1092,251 @@ body.theme-all{--red:#ff315a}
   }
 }
 
+
+/* Collection progress */
+.collection-progress{
+  width:min(620px,100%);
+  margin-top:24px;
+  padding:16px 18px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  background:rgba(8,13,23,.48);
+  backdrop-filter:blur(10px);
+  box-shadow:0 18px 50px rgba(0,0,0,.18);
+}
+.progress-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:10px;
+  font-family:"Orbitron",sans-serif;
+  letter-spacing:.11em;
+  font-size:.72rem;
+  font-weight:800;
+}
+.progress-heading strong{
+  color:var(--accent,var(--red));
+  font-size:.88rem;
+  letter-spacing:.04em;
+}
+.progress-track{
+  height:11px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.09);
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
+}
+.progress-fill{
+  width:0%;
+  height:100%;
+  border-radius:inherit;
+  background:
+    linear-gradient(90deg,
+      color-mix(in srgb,var(--accent,var(--red)) 68%,white),
+      var(--accent,var(--red)));
+  box-shadow:
+    0 0 15px color-mix(in srgb,var(--accent,var(--red)) 55%,transparent),
+    0 0 28px color-mix(in srgb,var(--accent,var(--red)) 25%,transparent);
+  transition:width .7s cubic-bezier(.2,.8,.2,1);
+  position:relative;
+}
+.progress-fill::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:translateX(-100%);
+  animation:progressSweep 2.6s ease-in-out infinite;
+}
+@keyframes progressSweep{
+  0%,55%{transform:translateX(-110%)}
+  85%,100%{transform:translateX(110%)}
+}
+.progress-detail{
+  margin-top:9px;
+  color:var(--muted);
+  font-size:.82rem;
+}
+
+/* Responsive archive controls */
+.archive-controls{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.mobile-quick-controls{display:none}
+.filter-panel{
+  transition:max-height .3s ease,opacity .25s ease,margin .25s ease,padding .25s ease;
+}
+
+@media(max-width:650px){
+  .top{
+    padding:9px 11px!important;
+    min-height:54px;
+  }
+  .top #viewToggle{
+    display:none!important;
+  }
+  .top #databaseBtn{
+    font-size:0;
+    padding:9px 10px;
+  }
+  .top #databaseBtn::before{
+    content:"🗃";
+    font-size:1rem;
+  }
+  .top #addBtn{
+    padding:9px 11px;
+    font-size:.76rem;
+  }
+
+  .hero{
+    min-height:350px!important;
+    padding:0 16px!important;
+  }
+  .hero-content{
+    padding:34px 0 28px!important;
+  }
+  .hero small{
+    font-size:.64rem;
+    letter-spacing:.13em;
+  }
+  .hero h1{
+    margin:10px 0 12px!important;
+    font-size:clamp(2.1rem,12.8vw,3.45rem)!important;
+    line-height:.92!important;
+  }
+  .hero p{
+    margin:0;
+    font-size:.86rem!important;
+    line-height:1.48!important;
+    max-width:92%;
+  }
+  .collection-progress{
+    margin-top:16px;
+    padding:12px 13px;
+    border-radius:12px;
+    width:100%;
+  }
+  .progress-heading{
+    margin-bottom:8px;
+    font-size:.62rem;
+  }
+  .progress-heading strong{font-size:.76rem}
+  .progress-track{height:9px}
+  .progress-detail{
+    margin-top:7px;
+    font-size:.72rem;
+  }
+
+  .shell{
+    padding-left:12px!important;
+    padding-right:12px!important;
+  }
+  .archive-controls{
+    align-items:flex-start;
+    gap:8px;
+    margin-top:10px;
+  }
+  .tabs{
+    flex:1;
+    gap:5px!important;
+    margin:0!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto;
+    scrollbar-width:none;
+    padding-bottom:2px;
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;
+    padding:7px 10px!important;
+    font-size:.72rem;
+  }
+  .mobile-quick-controls{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex:0 0 auto;
+  }
+  .filter-toggle{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    padding:7px 9px!important;
+    font-size:.72rem;
+    white-space:nowrap;
+  }
+  .filter-chevron{
+    transition:transform .25s ease;
+    font-size:.85rem;
+  }
+  .filter-toggle[aria-expanded="true"] .filter-chevron{
+    transform:rotate(180deg);
+  }
+  #mobileViewToggle{
+    display:flex!important;
+    width:auto!important;
+    order:initial!important;
+  }
+  #mobileViewToggle .view-btn{
+    padding:7px 9px!important;
+    min-width:34px;
+  }
+
+  .filter-panel{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:8px!important;
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    margin:0!important;
+    padding:0!important;
+    pointer-events:none;
+  }
+  .filter-panel.mobile-open{
+    max-height:240px;
+    opacity:1;
+    margin:10px 0 2px!important;
+    padding:1px 0!important;
+    pointer-events:auto;
+  }
+  .filter-panel #search{
+    grid-column:1/-1;
+  }
+  .filter-panel input,
+  .filter-panel select{
+    padding:9px!important;
+    font-size:.78rem;
+  }
+  #resultText{
+    margin:10px 0 9px!important;
+    font-size:.74rem;
+  }
+  .grid:not(.list-view){
+    gap:10px!important;
+  }
+  .body{
+    padding:9px!important;
+  }
+  .mobile-synopsis-toggle{
+    padding:8px!important;
+    font-size:.74rem;
+  }
+}
+
+@media(max-width:390px){
+  .hero{min-height:330px!important}
+  .hero-content{padding-top:28px!important}
+  .hero p{max-width:100%}
+  .filter-toggle span:first-child{display:none}
+  .filter-toggle::before{content:"⚙"}
+  .tab{padding:7px 9px!important}
+}
+
 </style>
 </head>
 <body>
@@ -1137,24 +1382,39 @@ body.theme-all{--red:#ff315a}
     <small id="heroKicker">YOUR CLOUD-SYNCED MEDIA DATABASE</small>
     <h1 id="heroTitle">CLASSIC STORIES.<br><span>ONE ARCHIVE.</span></h1>
     <p id="heroIntro">Sign into the same account on your phone, computer or tablet. New entries, favourites, ratings and statuses are stored in Supabase and load on every device.</p>
-    <div class="stats">
-      <div><b id="statTotal">0</b><span>Total titles</span></div>
-      <div><b id="statFav">0</b><span>Favourites</span></div>
-      <div><b id="statDone">0</b><span>Completed</span></div>
-      <div><b id="statMust">0</b><span>Must watch</span></div>
+    <div class="collection-progress" aria-live="polite">
+      <div class="progress-heading">
+        <span id="progressLabel">COLLECTION PROGRESS</span>
+        <strong id="progressPercent">0%</strong>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+      <div id="progressDetail" class="progress-detail">0 of 0 titles experienced</div>
     </div>
   </div>
 </section>
 
 <main class="shell">
-  <div class="tabs">
-    <button class="tab active" data-category="all">All</button>
-    <button class="tab" data-category="anime">Anime</button>
-    <button class="tab" data-category="movie">Movies</button>
-    <button class="tab" data-category="tv">TV Shows</button>
-    <button class="tab" data-category="game">Games</button>
+  <div class="archive-controls">
+    <div class="tabs" id="categoryTabs">
+      <button class="tab active" data-category="all">All</button>
+      <button class="tab" data-category="anime">Anime</button>
+      <button class="tab" data-category="movie">Movies</button>
+      <button class="tab" data-category="tv">TV Shows</button>
+      <button class="tab" data-category="game">Games</button>
+    </div>
+    <div class="mobile-quick-controls">
+      <button id="mobileFilterToggle" class="btn filter-toggle" type="button" aria-expanded="false" aria-controls="filterPanel">
+        <span>Filters</span><span class="filter-chevron">⌄</span>
+      </button>
+      <div id="mobileViewToggle" class="view-toggle" aria-label="View mode">
+        <button id="mobileTileViewBtn" class="view-btn active" type="button" title="Tile view">▦</button>
+        <button id="mobileListViewBtn" class="view-btn" type="button" title="List view">☰</button>
+      </div>
+    </div>
   </div>
-  <div class="toolbar">
+  <div id="filterPanel" class="toolbar filter-panel">
     <input id="search" placeholder="Search your archive…">
     <select id="status">
       <option value="all">All statuses</option>
@@ -1453,6 +1713,29 @@ function updateAllHeroCollage(){
   });
 }
 
+
+function updateCollectionProgress(){
+  const scoped=category==="all" ? items : items.filter(item=>item.category===category);
+  const completed=scoped.filter(item=>item.status==="completed").length;
+  const total=scoped.length;
+  const percent=total ? Math.round((completed/total)*100) : 0;
+  const categoryNames={
+    all:"COLLECTION PROGRESS",
+    anime:"ANIME PROGRESS",
+    movie:"MOVIE PROGRESS",
+    tv:"TV PROGRESS",
+    game:"GAME PROGRESS"
+  };
+  const noun=total===1?"title":"titles";
+
+  $("#progressLabel").textContent=categoryNames[category]||"COLLECTION PROGRESS";
+  $("#progressPercent").textContent=`${percent}%`;
+  $("#progressDetail").textContent=`${completed} of ${total} ${noun} experienced`;
+  $("#progressFill").style.width=`${percent}%`;
+  $("#progressTrack").setAttribute("aria-valuenow",String(percent));
+  $("#progressTrack").setAttribute("aria-label",`${completed} of ${total} ${noun} experienced`);
+}
+
 function render(){
   updateAllHeroCollage();
   const out=filtered();
@@ -1505,10 +1788,7 @@ function render(){
       </div>
     </div>
   </article>`).join("");
-  $("#statTotal").textContent=items.length;
-  $("#statFav").textContent=items.filter(x=>x.favourite).length;
-  $("#statDone").textContent=items.filter(x=>x.status==="completed").length;
-  $("#statMust").textContent=items.filter(x=>x.status==="must-watch").length;
+  updateCollectionProgress();
 }
 applyCategoryHero(category);
 
@@ -1519,6 +1799,47 @@ async function loadItems(){
   if(error){console.error(error);syncLabel("Sync error — check table setup");return}
   items=data||[];fillGenres();render();syncLabel(`Synced: ${user.email}`);
 }
+
+function syncViewButtons(){
+  const list=viewMode==="list";
+  ["#tileViewBtn","#mobileTileViewBtn"].forEach(selector=>{
+    const el=$(selector);
+    if(el)el.classList.toggle("active",!list);
+  });
+  ["#listViewBtn","#mobileListViewBtn"].forEach(selector=>{
+    const el=$(selector);
+    if(el)el.classList.toggle("active",list);
+  });
+}
+
+function setViewMode(mode){
+  viewMode=mode;
+  localStorage.setItem("mustArchiveView",viewMode);
+  syncViewButtons();
+  render();
+}
+
+const mobileFilterToggle=$("#mobileFilterToggle");
+if(mobileFilterToggle){
+  mobileFilterToggle.addEventListener("click",()=>{
+    const panel=$("#filterPanel");
+    const open=!panel.classList.contains("mobile-open");
+    panel.classList.toggle("mobile-open",open);
+    mobileFilterToggle.setAttribute("aria-expanded",String(open));
+  });
+}
+
+$("#mobileTileViewBtn")?.addEventListener("click",()=>setViewMode("tile"));
+$("#mobileListViewBtn")?.addEventListener("click",()=>setViewMode("list"));
+
+window.addEventListener("resize",()=>{
+  if(window.innerWidth>650){
+    $("#filterPanel")?.classList.remove("mobile-open");
+    $("#mobileFilterToggle")?.setAttribute("aria-expanded","false");
+  }
+});
+syncViewButtons();
+
 async function session(){
   const {data}=await client.auth.getSession();
   user=data.session?.user||null;updateAuthUI();await loadItems();
