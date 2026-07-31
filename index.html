@@ -1913,6 +1913,55 @@ body.theme-misc{
   }
 }
 
+
+/* =========================================================
+   HOMEPAGE HERO — approved tighter layout
+   ========================================================= */
+
+/* Bring the entire copy block closer to the header. */
+.hero[data-theme="all"] .hero-content{
+  transform:translateY(-70px)!important;
+}
+
+/* Tighten the MAKS / MUST / ARCHIVES lockup, especially ARCHIVES. */
+.hero[data-theme="all"] .hero-title{
+  line-height:.84!important;
+}
+
+.hero[data-theme="all"] .hero-title .accent,
+.hero[data-theme="all"] .hero-title span:last-child{
+  margin-top:-8px!important;
+}
+
+/* Archiva: same placement concept, 10% larger and slightly higher. */
+.hero[data-theme="all"] .home-mascot{
+  width:min(52.8vw,836px)!important;
+  bottom:34px!important;
+}
+
+/* Preserve the compact mobile treatment. */
+@media(max-width:900px){
+  .hero[data-theme="all"] .hero-content{
+    transform:translateY(-34px)!important;
+  }
+
+  .hero[data-theme="all"] .home-mascot{
+    width:min(51.7vw,616px)!important;
+    bottom:18px!important;
+  }
+}
+
+/* Portrait mobile: mascot remains hidden. */
+@media(max-width:650px) and (orientation:portrait){
+  .hero[data-theme="all"] .hero-content{
+    transform:translateY(-18px)!important;
+  }
+
+  .hero[data-theme="all"] .home-mascot{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
