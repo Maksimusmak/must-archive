@@ -1337,6 +1337,26 @@ body.theme-all{--red:#ff315a}
   .tab{padding:7px 9px!important}
 }
 
+
+/* Hero overflow fix */
+.hero,.hero-collage,.hero-art,.hero-artwork{
+ overflow:visible!important;
+ clip-path:none!important;
+ -webkit-clip-path:none!important;
+ mask:none!important;
+ -webkit-mask:none!important;
+}
+.hero-collage::after{
+ content:"";
+ position:absolute;
+ top:-8%;
+ bottom:-8%;
+ right:-220px;
+ width:240px;
+ pointer-events:none;
+ background:linear-gradient(to right,rgba(0,0,0,0),rgba(65,20,40,.55));
+}
+
 </style>
 </head>
 <body>
