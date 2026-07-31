@@ -266,7 +266,7 @@ body.theme-all{--red:#ff315a}
   display:block;
   background:
     linear-gradient(90deg,transparent,rgba(7,11,19,.05)),
-    url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") center/cover no-repeat;
+    url("HOMEPAGE-BANNER.jpg") center/cover no-repeat;
 }
 .db-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .db-action.db-danger{border-color:rgba(255,75,75,.32);background:linear-gradient(145deg,rgba(72,12,20,.55),#121b2a)}
@@ -293,7 +293,7 @@ body.theme-all{--red:#ff315a}
   inset:-1% -1% -3% 31%;
   background:
     linear-gradient(90deg,rgba(7,11,19,.08),transparent 55%),
-    url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") center/cover no-repeat;
+    url("HOMEPAGE-BANNER.jpg") center/cover no-repeat;
   opacity:.98;
   animation:homepageBannerDrift 30s ease-in-out infinite alternate;
   transform-origin:70% 48%;
@@ -503,7 +503,7 @@ body.theme-all{--red:#ff315a}
   inset:-3% -4% -4% 31%!important;
   background:
     linear-gradient(90deg,rgba(7,11,19,.05),transparent 54%),
-    url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") center/cover no-repeat!important;
+    url("HOMEPAGE-BANNER.jpg") center/cover no-repeat!important;
   opacity:.98;
 }
 
@@ -986,7 +986,7 @@ body.theme-all{--red:#ff315a}
 .hero[data-theme="all"] .hero-collage{
   background:
     linear-gradient(90deg,rgba(7,11,19,.05),transparent 54%),
-    url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") center/cover no-repeat!important;
+    url("HOMEPAGE-BANNER.jpg") center/cover no-repeat!important;
 }
 
 
@@ -1031,13 +1031,13 @@ body.theme-all{--red:#ff315a}
 .hero[data-theme="all"] .hero-collage{
   background:
     linear-gradient(90deg,rgba(7,11,19,.03),transparent 55%),
-    url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") center/cover no-repeat!important;
+    url("HOMEPAGE-BANNER.jpg") center/cover no-repeat!important;
 }
 
 
 /* ALL PAGE HERO — use the full banner as the hero background itself */
 .hero[data-theme="all"]{
-  background-image:url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png")!important;
+  background-image:url("HOMEPAGE-BANNER.jpg")!important;
   background-repeat:no-repeat!important;
   background-position:top center!important;
   background-size:cover!important;
@@ -1676,107 +1676,24 @@ body[data-theme="misc"],
 }
 
 
-/* Transparent homepage banner + category themed glow */
-body,.app,main,.shell{background:#070b13!important}
-.hero[data-theme="all"]{--theme-glow:255,46,93}
-.hero[data-theme="anime"]{--theme-glow:255,79,120}
-.hero[data-theme="movie"]{--theme-glow:77,163,255}
-.hero[data-theme="tv"]{--theme-glow:176,132,255}
-.hero[data-theme="game"]{--theme-glow:93,224,108}
-.hero[data-theme="misc"]{--theme-glow:240,184,75}
-
-.hero:not([data-theme="all"]){
- background:
- radial-gradient(circle at 88% 34%,
- rgba(var(--theme-glow),.14) 0%,
- rgba(var(--theme-glow),.08) 22%,
- rgba(var(--theme-glow),.035) 40%,
- rgba(var(--theme-glow),0) 68%)!important;
- background-color:transparent!important;
+/* Media-type themed PAGE background gradient — no hero/layout changes */
+body.theme-all{
+  background:radial-gradient(circle at 90% 0,rgba(255,49,90,.15),transparent 30%),var(--bg)!important;
 }
-
-.hero[data-theme="all"]{
- background:
- radial-gradient(circle at 84% 34%,
- rgba(var(--theme-glow),.13) 0%,
- rgba(var(--theme-glow),.07) 25%,
- rgba(var(--theme-glow),.025) 44%,
- rgba(var(--theme-glow),0) 69%),
- url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") top center / cover no-repeat!important;
- background-color:transparent!important;
+body.theme-anime{
+  background:radial-gradient(circle at 90% 0,rgba(255,49,90,.15),transparent 30%),var(--bg)!important;
 }
-
-.hero-grain{display:none!important}
-.hero[data-theme="all"] .hero-overlay,
-.hero[data-theme="all"] .hero-feather{background:none!important}
-
-@media(max-width:650px){
- .hero:not([data-theme="all"]){
-  background:radial-gradient(circle at 78% 20%,
-  rgba(var(--theme-glow),.12) 0%,
-  rgba(var(--theme-glow),.055) 30%,
-  rgba(var(--theme-glow),0) 66%)!important;
- }
- .hero[data-theme="all"]{
-  background:
-  radial-gradient(circle at 76% 18%,
-  rgba(var(--theme-glow),.11) 0%,
-  rgba(var(--theme-glow),.05) 28%,
-  rgba(var(--theme-glow),0) 64%),
-  url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") top center / auto 100% no-repeat!important;
- }
+body.theme-movie{
+  background:radial-gradient(circle at 90% 0,rgba(61,156,255,.15),transparent 30%),var(--bg)!important;
 }
-
-
-/* Page-level themed ambient glow */
-html{background:#070b13!important}
-
-body{
-  --page-glow:255,46,93;
-  background:
-    radial-gradient(circle at 84% 10%,
-      rgba(var(--page-glow),.14) 0%,
-      rgba(var(--page-glow),.075) 20%,
-      rgba(var(--page-glow),.03) 38%,
-      rgba(var(--page-glow),0) 64%),
-    #070b13!important;
+body.theme-tv{
+  background:radial-gradient(circle at 90% 0,rgba(176,108,255,.15),transparent 30%),var(--bg)!important;
 }
-
-body:has(.hero[data-theme="all"]){--page-glow:255,46,93}
-body:has(.hero[data-theme="anime"]){--page-glow:255,79,120}
-body:has(.hero[data-theme="movie"]){--page-glow:77,163,255}
-body:has(.hero[data-theme="tv"]){--page-glow:176,132,255}
-body:has(.hero[data-theme="game"]){--page-glow:93,224,108}
-body:has(.hero[data-theme="misc"]){--page-glow:240,184,75}
-
-.app,main,.shell{background:transparent!important}
-
-.hero:not([data-theme="all"]){
-  background:none!important;
-  background-color:transparent!important;
-  background-image:none!important;
+body.theme-game{
+  background:radial-gradient(circle at 90% 0,rgba(98,216,107,.15),transparent 30%),var(--bg)!important;
 }
-
-.hero[data-theme="all"]{
-  background:url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") top center / cover no-repeat!important;
-  background-color:transparent!important;
-}
-
-.hero-grain,.hero-feather,.hero-overlay{background:none!important}
-
-@media(max-width:650px){
-  body{
-    background:
-      radial-gradient(circle at 76% 5%,
-        rgba(var(--page-glow),.12) 0%,
-        rgba(var(--page-glow),.055) 24%,
-        rgba(var(--page-glow),0) 58%),
-      #070b13!important;
-  }
-
-  .hero[data-theme="all"]{
-    background:url("HOME-PAGE-BANNER-MASCOT-ARCHIVA.png") top center / auto 100% no-repeat!important;
-  }
+body.theme-misc{
+  background:radial-gradient(circle at 90% 0,rgba(240,184,75,.15),transparent 30%),var(--bg)!important;
 }
 
 </style>
