@@ -1463,6 +1463,137 @@ body[data-theme="misc"],
   border-color:rgba(240,184,75,.24)!important;
 }
 
+
+/* =========================================================
+   FINAL POLISH
+   ========================================================= */
+
+/* Hero grain removed completely. Keep this defensive rule in case
+   an old cached version of the element is ever present. */
+.hero-grain{
+  display:none!important;
+  background:none!important;
+  opacity:0!important;
+}
+
+/* Header brand: MAKS white, MUST ARCHIVES remains accent coloured. */
+.logo{
+  color:var(--red)!important;
+}
+.logo span{
+  color:#fff!important;
+}
+
+/* Keep the animated sheen strictly inside the COMPLETED/FILLED part. */
+.progress-fill{
+  overflow:hidden!important;
+  isolation:isolate;
+}
+.progress-fill::after{
+  inset:0!important;
+  border-radius:inherit;
+  overflow:hidden!important;
+  pointer-events:none;
+}
+
+/* Mobile control hierarchy:
+   Row 1 = media categories
+   Row 2 = Filters + Tile/List controls */
+@media(max-width:650px){
+  .archive-controls{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:8px!important;
+    width:100%!important;
+  }
+
+  /* No horizontal category scrolling. Use a balanced 3 x 2 grid. */
+  .archive-controls .tabs{
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    width:100%!important;
+    max-width:none!important;
+    gap:6px!important;
+    overflow:visible!important;
+    flex:none!important;
+    padding:0!important;
+    margin:0!important;
+  }
+
+  .archive-controls .tab{
+    width:100%!important;
+    min-width:0!important;
+    padding:8px 6px!important;
+    text-align:center!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    font-size:.72rem!important;
+  }
+
+  .mobile-quick-controls{
+    display:flex!important;
+    width:100%!important;
+    align-items:stretch!important;
+    justify-content:space-between!important;
+    gap:8px!important;
+    margin:0!important;
+  }
+
+  .filter-toggle{
+    height:38px!important;
+    min-height:38px!important;
+    padding:0 13px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:6px!important;
+    line-height:1!important;
+  }
+
+  #mobileViewToggle{
+    height:38px!important;
+    min-height:38px!important;
+    display:flex!important;
+    align-items:stretch!important;
+    overflow:hidden;
+  }
+
+  #mobileViewToggle .view-btn{
+    height:38px!important;
+    min-height:38px!important;
+    width:40px!important;
+    min-width:40px!important;
+    padding:0!important;
+    display:grid!important;
+    place-items:center!important;
+    line-height:1!important;
+  }
+
+  /* Compact but clear gap before the expandable filter panel. */
+  .filter-panel.mobile-open{
+    margin-top:2px!important;
+  }
+}
+
+@media(max-width:390px){
+  /* Keep category labels visible on small phones as well. */
+  .archive-controls .tab{
+    font-size:.68rem!important;
+    padding-left:4px!important;
+    padding-right:4px!important;
+  }
+
+  /* Don't replace the Filters label with an icon on very small screens. */
+  .filter-toggle span:first-child{
+    display:inline!important;
+  }
+  .filter-toggle::before{
+    content:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1502,7 +1633,6 @@ body[data-theme="misc"],
   <div id="heroArt" class="hero-art" aria-hidden="true"></div>
   <div id="heroCollage" class="hero-collage" aria-hidden="true"></div>
   <div class="hero-feather" aria-hidden="true"></div>
-  <div class="hero-grain" aria-hidden="true"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <small id="heroKicker">YOUR CLOUD-SYNCED MEDIA DATABASE</small>

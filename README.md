@@ -1,19 +1,11 @@
-# MAKS MUST ARCHIVES — Misc Category
+# MAKS MUST ARCHIVES — Grain Removal + Mobile Polish
 
-Added a new Misc category for anything outside Anime, Movies, TV Shows and Games.
-
-Examples:
-- Books
-- Action figures
-- Music
-- Collectibles
-- Tech / gear
-- Wishlist items
-- Anything else you have your eye on
-
-Misc is wired into:
-- Category tabs
-- Add/Edit category selector
-- Filtering
-- Collection Progress
-- Category styling
+Changes:
+- Removed the hero-grain element that caused the faint discoloured hero rectangle
+- Header brand now shows MAKS in white and MUST ARCHIVES in the accent colour
+- On mobile, media categories get their own full-width row
+- Mobile categories no longer horizontally scroll; they use a compact 3 x 2 layout
+- Filters and Tile/List controls move to the row below
+- Filters and Tile/List controls are exactly the same height
+- Progress animation is clipped strictly inside the filled progress portion
+- Includes the Misc category and all previous archive features
