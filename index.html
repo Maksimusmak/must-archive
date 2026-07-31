@@ -1894,6 +1894,25 @@ body.theme-misc{
   }
 }
 
+
+/* Homepage hero spacing refinement:
+   bring "YOUR CLOUD-SYNCED MEDIA DATABASE" closer to the header. */
+.hero[data-theme="all"] .hero-content{
+  transform:translateY(-46px);
+}
+
+@media(max-width:900px){
+  .hero[data-theme="all"] .hero-content{
+    transform:translateY(-24px);
+  }
+}
+
+@media(max-width:650px) and (orientation:portrait){
+  .hero[data-theme="all"] .hero-content{
+    transform:translateY(-12px);
+  }
+}
+
 </style>
 </head>
 <body>
