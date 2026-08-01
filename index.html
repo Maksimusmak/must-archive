@@ -2293,6 +2293,34 @@ body.theme-misc{
   }
 }
 
+
+/* Card back layout fix */
+.card-back,.flip-back,.media-back{
+ display:flex!important;
+ flex-direction:column!important;
+}
+.card-back .synopsis,
+.flip-back .synopsis,
+.media-back .synopsis{
+ flex:1 1 auto!important;
+ min-height:0!important;
+ overflow-y:auto!important;
+ padding-right:8px!important;
+ scrollbar-width:thin;
+}
+.card-back .actions,
+.flip-back .actions,
+.media-back .actions,
+.card-back .card-actions,
+.flip-back .card-actions,
+.media-back .card-actions{
+ margin-top:auto!important;
+ position:sticky!important;
+ bottom:0;
+ background:inherit;
+ padding-top:10px!important;
+}
+
 </style>
 </head>
 <body>
