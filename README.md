@@ -1,10 +1,14 @@
-# MAKS MUST ARCHIVES — Archiva Top-Aligned
+# MAKS MUST ARCHIVES — Archiva Final Polish
 
 Changes:
-- Archiva is pinned near the top of the hero
-- Archiva is larger on desktop
-- Archiva is significantly larger on landscape phones
-- Speech bubble is kept in the right-side mascot area
-- Speech bubble avoids the MAKS MUST ARCHIVES title
-- Portrait mobile still hides Archiva and her bubble
-- All blink, motivation, archive facts, footer, database and mobile features remain included
+- Speech bubble repositioned beside Archiva's head
+- Bubble tail aligned toward her lips
+- Bubble stays away from MAKS MUST ARCHIVES
+- Landscape mobile title uses:
+  MAKS
+  MUST
+  ARCHIVES
+- Double blink now occurs every 4–8 seconds
+- Blink timing made easier to notice
+- Removed the large gap below the hero on landscape mobile
+- Full site and all previous features retained
