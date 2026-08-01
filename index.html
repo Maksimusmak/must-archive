@@ -2455,6 +2455,12 @@ body.theme-misc{
   }
 }
 
+
+.archiva-stage{position:absolute!important;top:14px!important;right:1.5%!important;width:min(62vw,980px)!important}
+.archiva-stage img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:right top!important;margin:0!important;padding:0!important;transform:none!important}
+.archiva-open{opacity:1}.archiva-blink{opacity:0}
+.archiva-stage.is-blinking .archiva-open{opacity:0}
+.archiva-stage.is-blinking .archiva-blink{opacity:1}
 </style>
 </head>
 <body>
@@ -3598,22 +3604,11 @@ function hideArchivaMessage(){
 }
 
 function scheduleArchivaBlink(){
-  clearTimeout(archivaBlinkTimer);
-  archivaMascot?.classList.remove("is-blinking");
-  if(!archivaVisible())return;
-  const delay=3000+Math.random()*3000;
-  archivaBlinkTimer=setTimeout(async()=>{
-    if(!archivaVisible()){scheduleArchivaBlink();return}
-    const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-    archivaMascot.classList.add("is-blinking");
-    await wait(170);
-    archivaMascot.classList.remove("is-blinking");
-    await wait(130);
-    archivaMascot.classList.add("is-blinking");
-    await wait(170);
-    archivaMascot.classList.remove("is-blinking");
-    scheduleArchivaBlink();
-  },delay);
+clearTimeout(archivaBlinkTimer);
+const stage=document.querySelector('.archiva-stage');
+if(!stage)return;
+const run=()=>{stage.classList.add('is-blinking');setTimeout(()=>{stage.classList.remove('is-blinking');setTimeout(()=>{stage.classList.add('is-blinking');setTimeout(()=>{stage.classList.remove('is-blinking');scheduleArchivaBlink();},120);},90);},120);};
+archivaBlinkTimer=setTimeout(run,3000+Math.random()*3000);
 }
 
 if(archivaMascot){
