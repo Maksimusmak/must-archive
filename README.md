@@ -1,7 +1,10 @@
-# MAKS MUST ARCHIVES — Blink Alignment Fix
+# MAKS MUST ARCHIVES — Archiva Sprite Aspect Fix
 
-Fixed:
-- Open-eye and blink PNGs now occupy the exact same fixed stage
-- Both layers use identical dimensions, positioning, object-fit and transform rules
-- Older mascot positioning rules can no longer shift one layer independently
-- All mobile collapse, speech bubble and synopsis fixes remain included
+Fixed Archiva's squashed appearance.
+
+Sprite sheet dimensions: 3072 × 1024
+Individual frame dimensions: 1536 × 1024
+Frame aspect ratio: 1.5000
+
+The sprite container now uses the exact aspect ratio of one Archiva frame.
+The double-blink sprite animation remains unchanged.

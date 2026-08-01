@@ -2483,6 +2483,38 @@ body.theme-misc{
 }
 .archiva-sprite.blink{background-position:right top;}
 
+
+/* Archiva sprite aspect-ratio correction
+   Sprite: 3072 × 1024
+   Each frame: 1536 × 1024 */
+.archiva-sprite{
+  width:min(62vw,980px)!important;
+  height:auto!important;
+  aspect-ratio:1536 / 1024!important;
+  background-image:url("ARCHIVA-BLINK-SPRITESHEET.png")!important;
+  background-size:200% 100%!important;
+  background-repeat:no-repeat!important;
+  background-position:left top;
+  flex:none!important;
+}
+
+.archiva-sprite.blink{
+  background-position:right top!important;
+}
+
+@media(max-width:950px) and (orientation:landscape){
+  .archiva-sprite{
+    width:min(76vw,720px)!important;
+    aspect-ratio:1536 / 1024!important;
+  }
+}
+
+@media(max-width:650px) and (orientation:portrait){
+  .archiva-sprite{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
