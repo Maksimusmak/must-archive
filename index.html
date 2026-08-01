@@ -2605,6 +2605,113 @@ body.theme-misc{
   }
 }
 
+
+/* =========================================================
+   FLOATING COVERS BESIDE ARCHIVA
+   30% smaller and shifted left into the open head-side area.
+   ========================================================= */
+
+/* Keep the collage behind Archiva and below the message panel. */
+.hero .hero-collage{
+  z-index:1!important;
+  pointer-events:none!important;
+}
+
+/* Archiva stays in front of the cover cards. */
+.hero .archiva-sprite{
+  z-index:3!important;
+}
+
+/* Show dynamic covers on category pages while Archiva remains present. */
+.hero:not([data-theme="all"]) .hero-collage{
+  display:block!important;
+  visibility:visible!important;
+  opacity:.88!important;
+}
+
+/* Reduce the entire playing-card cluster to 70% and move it left. */
+.hero:not([data-theme="all"]) .hero-collage{
+  width:min(490px,35vw)!important;
+  height:330px!important;
+  top:74px!important;
+  right:31%!important;
+  left:auto!important;
+  transform:none!important;
+  overflow:visible!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  -webkit-mask:none!important;
+  mask:none!important;
+}
+
+/* Keep the familiar three-card arrangement at the smaller scale. */
+.hero:not([data-theme="all"]) .hero-collage .collage-card{
+  width:31%!important;
+  border-radius:12px!important;
+  box-shadow:0 18px 46px rgba(0,0,0,.46)!important;
+}
+
+.hero:not([data-theme="all"]) .hero-collage .collage-card:nth-child(1){
+  left:4%!important;
+  top:58px!important;
+  transform:rotate(-7deg) scale(.94)!important;
+}
+
+.hero:not([data-theme="all"]) .hero-collage .collage-card:nth-child(2){
+  left:34%!important;
+  top:4px!important;
+  transform:rotate(1deg) scale(1.03)!important;
+}
+
+.hero:not([data-theme="all"]) .hero-collage .collage-card:nth-child(3){
+  left:64%!important;
+  top:58px!important;
+  transform:rotate(7deg) scale(.94)!important;
+}
+
+.hero:not([data-theme="all"]) .hero-collage .collage-card:nth-child(n+4){
+  display:none!important;
+}
+
+/* ALL/Home page keeps Archiva as the main visual without duplicate covers. */
+.hero[data-theme="all"] .hero-collage{
+  display:none!important;
+}
+
+/* Tablet and narrower desktop positioning. */
+@media(max-width:1180px){
+  .hero:not([data-theme="all"]) .hero-collage{
+    width:min(410px,38vw)!important;
+    height:285px!important;
+    right:32%!important;
+    top:78px!important;
+  }
+}
+
+/* Landscape phone: retain the covers, but keep them compact and left of her head. */
+@media(max-width:950px) and (orientation:landscape){
+  .hero:not([data-theme="all"]) .hero-collage{
+    display:block!important;
+    width:min(330px,42vw)!important;
+    height:225px!important;
+    right:35%!important;
+    top:52px!important;
+    opacity:.78!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-collage .collage-card{
+    border-radius:9px!important;
+  }
+}
+
+/* Portrait phones remain clean: no Archiva or decorative hero covers. */
+@media(max-width:650px) and (orientation:portrait){
+  .hero:not([data-theme="all"]) .hero-collage{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>

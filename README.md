@@ -1,10 +1,11 @@
-# MAKS MUST ARCHIVES — Archiva Message Panel
+# MAKS MUST ARCHIVES — Archiva + Floating Covers
 
 Changes:
-- Moved Archiva's speech panel above YOUR CLOUD-SYNCED MEDIA DATABASE
-- Widened the panel to align with the hero text column
-- Keeps messages to a maximum of 2–3 lines
-- Pointer aims toward Archiva on the right
-- Responsive desktop, tablet and landscape-mobile positioning
-- Portrait mobile remains hidden
-- All sprite blinking, click-to-restore, archive messages and other features remain included
+- Three cover cards appear behind Archiva on Anime, Movies, TV, Games and Misc pages
+- Cover cluster moved left into the open area beside her head
+- Covers reduced by 30%
+- Existing three-card playing-card arrangement preserved
+- Archiva remains in front of the cards
+- Home/All page remains mascot-only
+- Landscape mobile keeps a compact version
+- Portrait mobile hides both Archiva and decorative hero covers
