@@ -2521,6 +2521,90 @@ body.theme-misc{
   pointer-events:auto!important;
 }
 
+
+/* =========================================================
+   ARCHIVA MESSAGE PANEL — ABOVE HERO KICKER
+   ========================================================= */
+
+/* Position the panel above "YOUR CLOUD-SYNCED MEDIA DATABASE". */
+.hero[data-theme="all"] .archiva-speech{
+  left:0!important;
+  right:auto!important;
+  top:22px!important;
+  width:min(520px,42vw)!important;
+  max-width:520px!important;
+  padding:16px 44px 15px 18px!important;
+  border-radius:14px!important;
+  transform-origin:left bottom!important;
+}
+
+/* Pointer aims diagonally toward Archiva on the right. */
+.hero[data-theme="all"] .archiva-speech::after{
+  right:-10px!important;
+  left:auto!important;
+  top:auto!important;
+  bottom:14px!important;
+  transform:rotate(45deg)!important;
+}
+
+/* Make room between the panel and the kicker below it. */
+.hero[data-theme="all"] .hero-content{
+  padding-top:132px!important;
+}
+
+/* Keep messages compact and readable. */
+.hero[data-theme="all"] .archiva-speech p{
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  line-height:1.5!important;
+}
+
+/* Tablet */
+@media(max-width:1100px){
+  .hero[data-theme="all"] .archiva-speech{
+    top:18px!important;
+    width:min(470px,46vw)!important;
+    max-width:470px!important;
+  }
+
+  .hero[data-theme="all"] .hero-content{
+    padding-top:124px!important;
+  }
+}
+
+/* Landscape mobile */
+@media(max-width:950px) and (orientation:landscape){
+  .hero[data-theme="all"] .archiva-speech{
+    left:14px!important;
+    top:10px!important;
+    width:min(430px,55vw)!important;
+    max-width:430px!important;
+    padding:12px 40px 12px 14px!important;
+  }
+
+  .hero[data-theme="all"] .hero-content{
+    padding-top:104px!important;
+  }
+
+  .hero[data-theme="all"] .archiva-speech p{
+    font-size:.76rem!important;
+    -webkit-line-clamp:2;
+  }
+}
+
+/* Portrait mobile keeps Archiva and her message hidden. */
+@media(max-width:650px) and (orientation:portrait){
+  .hero[data-theme="all"] .archiva-speech{
+    display:none!important;
+  }
+
+  .hero[data-theme="all"] .hero-content{
+    padding-top:30px!important;
+  }
+}
+
 </style>
 </head>
 <body>

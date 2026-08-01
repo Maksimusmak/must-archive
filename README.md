@@ -1,8 +1,10 @@
-# MAKS MUST ARCHIVES — Archiva Click + Blink Update
+# MAKS MUST ARCHIVES — Archiva Message Panel
 
 Changes:
-- Fixed Archiva click targeting after the sprite-sheet conversion
-- Clicking Archiva restores her speech bubble even after it was closed
-- Clicking her also generates another message
-- Blink frequency increased to every 2–4 seconds
-- Sprite aspect-ratio fix remains included
+- Moved Archiva's speech panel above YOUR CLOUD-SYNCED MEDIA DATABASE
+- Widened the panel to align with the hero text column
+- Keeps messages to a maximum of 2–3 lines
+- Pointer aims toward Archiva on the right
+- Responsive desktop, tablet and landscape-mobile positioning
+- Portrait mobile remains hidden
+- All sprite blinking, click-to-restore, archive messages and other features remain included
