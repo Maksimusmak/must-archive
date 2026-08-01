@@ -1981,6 +1981,147 @@ body.theme-misc{
   }
 }
 
+
+/* =========================================================
+   ARCHIVA — BLINK + FRIENDLY SPEECH BUBBLE
+   ========================================================= */
+
+.hero[data-theme="all"] .home-mascot{
+  pointer-events:auto!important;
+  cursor:pointer;
+}
+
+/* Bubble sits near Archiva without covering the title or progress panel. */
+.archiva-speech{
+  --bubble-accent:#ff315a;
+  position:absolute;
+  z-index:12;
+  right:39%;
+  top:88px;
+  width:min(310px,24vw);
+  padding:16px 42px 14px 16px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:16px;
+  background:rgba(9,14,24,.94);
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.44),
+    0 0 30px rgba(255,49,90,.08);
+  backdrop-filter:blur(16px);
+  color:#d9e0ec;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(8px) scale(.97);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s;
+}
+
+.archiva-speech.visible{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0) scale(1);
+}
+
+.archiva-speech::after{
+  content:"";
+  position:absolute;
+  right:-11px;
+  top:48%;
+  width:20px;
+  height:20px;
+  background:rgba(9,14,24,.94);
+  border-top:1px solid rgba(255,255,255,.15);
+  border-right:1px solid rgba(255,255,255,.15);
+  transform:rotate(45deg);
+}
+
+.archiva-name{
+  margin-bottom:7px;
+  color:var(--bubble-accent);
+  font-family:"Orbitron",sans-serif;
+  font-size:.68rem;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+
+.archiva-speech p{
+  margin:0;
+  color:#d9e0ec;
+  font-size:.84rem;
+  line-height:1.52;
+}
+
+.archiva-close{
+  position:absolute;
+  top:8px;
+  right:9px;
+  width:27px;
+  height:27px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.07);
+  color:#aab5c5;
+  cursor:pointer;
+  font-size:1rem;
+}
+
+.archiva-close:hover{
+  background:rgba(255,255,255,.13);
+  color:#fff;
+}
+
+.archiva-next{
+  margin-top:10px;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:var(--bubble-accent);
+  font:inherit;
+  font-size:.74rem;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.archiva-next:hover{
+  filter:brightness(1.2);
+}
+
+/* Archiva only belongs to the All/Home page. */
+.hero:not([data-theme="all"]) .archiva-speech{
+  display:none!important;
+}
+
+@media(max-width:1120px){
+  .archiva-speech{
+    right:37%;
+    top:76px;
+    width:min(285px,27vw);
+  }
+}
+
+/* Mascot and bubble remain hidden in portrait mobile. */
+@media(max-width:650px) and (orientation:portrait){
+  .archiva-speech{
+    display:none!important;
+  }
+}
+
+@media(max-width:900px) and (orientation:landscape){
+  .archiva-speech{
+    right:40%;
+    top:58px;
+    width:260px;
+    padding:12px 38px 11px 13px;
+  }
+  .archiva-speech p{
+    font-size:.76rem;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .archiva-speech{
+    transition:none;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2021,6 +2162,12 @@ body.theme-misc{
   <div id="heroCollage" class="hero-collage" aria-hidden="true"></div>
   <div class="hero-feather" aria-hidden="true"></div>
 <img class="home-mascot" src="ARCHIVA-MASCOT-ver2.png" alt="Archiva mascot">
+<div id="archivaSpeech" class="archiva-speech" role="status" aria-live="polite">
+  <button id="archivaClose" class="archiva-close" type="button" aria-label="Close Archiva message">×</button>
+  <div class="archiva-name">ARCHIVA</div>
+  <p id="archivaMessage">Your archive is ready, Mak.</p>
+  <button id="archivaNext" class="archiva-next" type="button">Another thought</button>
+</div>
     <div class="hero-content">
     <small id="heroKicker">YOUR CLOUD-SYNCED MEDIA DATABASE</small>
     <h1 id="heroTitle">MAKS<br><span>MUST ARCHIVES</span></h1>
@@ -2347,7 +2494,8 @@ function updateAllHeroCollage(){
     anime:"anime",
     movie:"movie",
     tv:"tv",
-    game:"game"
+    game:"game",
+    misc:"misc"
   };
 
   const target=categoryMap[category];
@@ -2458,6 +2606,10 @@ async function loadItems(){
   const {data,error}=await client.from("archive_items").select("*").order("created_at",{ascending:false});
   if(error){console.error(error);syncLabel("Sync error — check table setup");return}
   items=data||[];fillGenres();render();syncLabel(`Synced: ${user.email}`);
+  scheduleArchivaBlink();
+  if(category==="all"&&!sessionStorage.getItem("archivaBubbleClosed")){
+    window.setTimeout(()=>showArchivaMessage(false),700);
+  }
 }
 
 function syncViewButtons(){
@@ -2933,8 +3085,232 @@ document.addEventListener("change",async e=>{
     if(item){const value=e.target.value;const {error}=await client.from("archive_items").update({status:value}).eq("id",item.id);if(!error){item.status=value;render()}}
   }
 });
-$$(".tab").forEach(b=>b.onclick=()=>{category=b.dataset.category;$$(".tab").forEach(x=>x.classList.toggle("active",x===b));applyCategoryHero(category);updateAllHeroCollage();render()});
+$$(".tab").forEach(b=>b.onclick=()=>{
+  category=b.dataset.category;
+  $$(".tab").forEach(x=>x.classList.toggle("active",x===b));
+  applyCategoryHero(category);
+  updateAllHeroCollage();
+  render();
+  if(category==="all"){
+    if(!sessionStorage.getItem("archivaBubbleClosed"))window.setTimeout(()=>showArchivaMessage(false),350);
+    scheduleArchivaBlink();
+  }else{
+    hideArchivaMessage();
+  }
+});
 ["search","status","genre","sort"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+
+/* =========================================================
+   ARCHIVA PERSONALITY + DOUBLE-BLINK
+   No external API is required: messages update automatically
+   from titles, dates, genres, ratings and statuses in Supabase.
+   ========================================================= */
+
+const archivaMascot=document.querySelector(".home-mascot");
+const archivaSpeech=document.getElementById("archivaSpeech");
+const archivaMessage=document.getElementById("archivaMessage");
+const archivaClose=document.getElementById("archivaClose");
+const archivaNext=document.getElementById("archivaNext");
+const ARCHIVA_OPEN_IMAGE="ARCHIVA-MASCOT-ver2.png";
+const ARCHIVA_BLINK_IMAGE="ARCHIVA-MASCOT-ver2---BLINK.png";
+let archivaBlinkTimer=null;
+let lastArchivaMessage="";
+
+function archivaVisible(){
+  return !!user &&
+    category==="all" &&
+    window.innerWidth>650 &&
+    archivaMascot &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function monthsSince(dateValue){
+  if(!dateValue)return 0;
+  const date=new Date(dateValue);
+  if(Number.isNaN(date.getTime()))return 0;
+  return Math.max(0,Math.floor((Date.now()-date.getTime())/(1000*60*60*24*30.44)));
+}
+
+function chooseOne(list){
+  return list[Math.floor(Math.random()*list.length)];
+}
+
+function archiveFacts(){
+  if(!items.length){
+    return [
+      "Your archive is looking wonderfully mysterious, Mak. Add something when inspiration strikes."
+    ];
+  }
+
+  const facts=[];
+  const dated=items.filter(item=>Number(item.year));
+  const highest=[...items].sort((a,b)=>Number(b.rating||0)-Number(a.rating||0))[0];
+  const genres={};
+  items.forEach(item=>(item.genres||[]).forEach(genre=>{
+    genres[genre]=(genres[genre]||0)+1;
+  }));
+  const favouriteGenre=Object.entries(genres).sort((a,b)=>b[1]-a[1])[0];
+  const decades={};
+  dated.forEach(item=>{
+    const decade=Math.floor(Number(item.year)/10)*10;
+    decades[decade]=(decades[decade]||0)+1;
+  });
+  const favouriteDecade=Object.entries(decades).sort((a,b)=>b[1]-a[1])[0];
+
+  if(highest&&Number(highest.rating)>0){
+    facts.push(`Archive fact: “${highest.title}” is currently one of your highest-rated picks at ${Number(highest.rating).toFixed(1)} stars.`);
+  }
+  if(favouriteGenre){
+    facts.push(`Archive fact: ${favouriteGenre[0]} is your most common genre right now, appearing in ${favouriteGenre[1]} ${favouriteGenre[1]===1?"title":"titles"}.`);
+  }
+  if(favouriteDecade){
+    facts.push(`Archive fact: the ${favouriteDecade[0]}s are strongly represented here, with ${favouriteDecade[1]} ${favouriteDecade[1]===1?"title":"titles"} in your collection.`);
+  }
+
+  const randomTitle=chooseOne(items);
+  if(randomTitle?.year){
+    facts.push(`A little archive note: “${randomTitle.title}” dates back to ${randomTitle.year}. A fine vintage for the collection.`);
+  }
+  if(randomTitle?.genres?.length){
+    facts.push(`“${randomTitle.title}” carries a ${randomTitle.genres.slice(0,2).join(" and ")} flavour. That could suit tonight's mood.`);
+  }
+
+  return facts;
+}
+
+function gentlePrompts(){
+  const unfinished=items.filter(item=>item.status!=="completed");
+  if(!unfinished.length){
+    return ["Mak, you’ve completed everything currently in the archive. That deserves a victory snack."];
+  }
+
+  const old=[...unfinished]
+    .map(item=>({item,months:monthsSince(item.created_at||item.updated_at)}))
+    .filter(entry=>entry.months>=2)
+    .sort((a,b)=>b.months-a.months);
+
+  const messages=[];
+  if(old.length){
+    const pick=chooseOne(old.slice(0,Math.min(5,old.length)));
+    messages.push(`Mak! “${pick.item.title}” has been waiting ${pick.months} ${pick.months===1?"month":"months"}. No pressure… but perhaps soon?`);
+  }
+
+  const watching=unfinished.filter(item=>item.status==="watching");
+  if(watching.length){
+    const pick=chooseOne(watching);
+    messages.push(`You’re already partway into “${pick.title}”. It might be nice to return when the mood feels right.`);
+  }
+
+  const mustWatch=unfinished.filter(item=>item.status==="must-watch");
+  if(mustWatch.length){
+    const pick=chooseOne(mustWatch);
+    messages.push(`“${pick.title}” is still marked Must Watch. I’ll keep it warm in the archive for you.`);
+  }
+
+  return messages;
+}
+
+function positiveMessages(){
+  const complete=items.filter(item=>item.status==="completed");
+  const favourites=items.filter(item=>item.favourite);
+  const messages=[
+    "No rush, Mak. The archive is here to make choosing fun—not to give you homework.",
+    "Tonight’s perfect choice is whichever title matches your mood. That’s the official Archiva method.",
+    "Your collection has excellent range. Past-you has left present-you plenty of good options."
+  ];
+
+  if(complete.length){
+    messages.push(`You’ve already experienced ${complete.length} ${complete.length===1?"title":"titles"}. Nicely done, Mak.`);
+  }
+  if(favourites.length){
+    messages.push(`You have ${favourites.length} favourite ${favourites.length===1?"title":"titles"} saved. Reliable comfort picks are always valuable.`);
+  }
+
+  return messages;
+}
+
+function buildArchivaMessages(){
+  const pool=[
+    ...archiveFacts(),
+    ...archiveFacts(),
+    ...gentlePrompts(),
+    ...positiveMessages(),
+    ...positiveMessages()
+  ].filter(Boolean);
+
+  return pool.length?pool:["Your archive is ready whenever you are, Mak."];
+}
+
+function showArchivaMessage(forceNew=false){
+  if(!archivaSpeech||!archivaMessage||!user||category!=="all")return;
+
+  const messages=buildArchivaMessages();
+  let message=chooseOne(messages);
+  if(forceNew&&messages.length>1){
+    let attempts=0;
+    while(message===lastArchivaMessage&&attempts<8){
+      message=chooseOne(messages);
+      attempts++;
+    }
+  }
+
+  lastArchivaMessage=message;
+  archivaMessage.textContent=message;
+  archivaSpeech.classList.add("visible");
+}
+
+function hideArchivaMessage(){
+  archivaSpeech?.classList.remove("visible");
+}
+
+function scheduleArchivaBlink(){
+  clearTimeout(archivaBlinkTimer);
+  if(!archivaVisible()){
+    if(archivaMascot)archivaMascot.src=ARCHIVA_OPEN_IMAGE;
+    return;
+  }
+
+  const delay=7000+Math.random()*8000;
+  archivaBlinkTimer=setTimeout(async()=>{
+    if(!archivaVisible())return scheduleArchivaBlink();
+
+    const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+    archivaMascot.src=ARCHIVA_BLINK_IMAGE;
+    await wait(125);
+    archivaMascot.src=ARCHIVA_OPEN_IMAGE;
+    await wait(105);
+    archivaMascot.src=ARCHIVA_BLINK_IMAGE;
+    await wait(125);
+    archivaMascot.src=ARCHIVA_OPEN_IMAGE;
+    scheduleArchivaBlink();
+  },delay);
+}
+
+if(archivaMascot){
+  const preloadBlink=new Image();
+  preloadBlink.src=ARCHIVA_BLINK_IMAGE;
+
+  archivaMascot.addEventListener("click",event=>{
+    event.stopPropagation();
+    showArchivaMessage(true);
+  });
+}
+
+archivaNext?.addEventListener("click",event=>{
+  event.stopPropagation();
+  showArchivaMessage(true);
+});
+
+archivaClose?.addEventListener("click",event=>{
+  event.stopPropagation();
+  hideArchivaMessage();
+  sessionStorage.setItem("archivaBubbleClosed","1");
+});
+
+window.addEventListener("resize",scheduleArchivaBlink);
+scheduleArchivaBlink();
+
+
 session();
 
 let heroParallaxTicking=false;
