@@ -1,10 +1,8 @@
-# MAKS MUST ARCHIVES — Archiva Sprite Aspect Fix
+# MAKS MUST ARCHIVES — Archiva Click + Blink Update
 
-Fixed Archiva's squashed appearance.
-
-Sprite sheet dimensions: 3072 × 1024
-Individual frame dimensions: 1536 × 1024
-Frame aspect ratio: 1.5000
-
-The sprite container now uses the exact aspect ratio of one Archiva frame.
-The double-blink sprite animation remains unchanged.
+Changes:
+- Fixed Archiva click targeting after the sprite-sheet conversion
+- Clicking Archiva restores her speech bubble even after it was closed
+- Clicking her also generates another message
+- Blink frequency increased to every 2–4 seconds
+- Sprite aspect-ratio fix remains included

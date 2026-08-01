@@ -2515,6 +2515,12 @@ body.theme-misc{
   }
 }
 
+
+.archiva-sprite{
+  cursor:pointer!important;
+  pointer-events:auto!important;
+}
+
 </style>
 </head>
 <body>
@@ -3499,7 +3505,7 @@ $$(".tab").forEach(b=>b.onclick=()=>{
    from titles, dates, genres, ratings and statuses in Supabase.
    ========================================================= */
 
-const archivaMascot=document.querySelector(".archiva-stage");
+const archivaMascot=document.querySelector(".archiva-sprite");
 const archivaSpeech=document.getElementById("archivaSpeech");
 const archivaMessage=document.getElementById("archivaMessage");
 const archivaClose=document.getElementById("archivaClose");
@@ -3672,13 +3678,14 @@ function scheduleArchivaBlink(){
    },90);
   },120);
  };
- archivaBlinkTimer=setTimeout(run,3000+Math.random()*3000);
+ archivaBlinkTimer=setTimeout(run,2000+Math.random()*2000);
 }
 
 
 if(archivaMascot){
 archivaMascot.addEventListener("click",event=>{
     event.stopPropagation();
+    sessionStorage.removeItem("archivaBubbleClosed");
     showArchivaMessage(true);
   });
 }
