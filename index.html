@@ -2346,6 +2346,46 @@ body.theme-misc{
  .archiva-stage,.archiva-speech{display:none!important}
 }
 
+
+/* =========================================================
+   MOBILE MORE PANEL — CLOSED BY DEFAULT
+   ========================================================= */
+@media(max-width:650px){
+  .card .mobile-synopsis{
+    display:block!important;
+    max-height:0!important;
+    height:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    opacity:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+    margin-top:0!important;
+    pointer-events:none!important;
+    transition:
+      max-height .35s ease,
+      height .35s ease,
+      opacity .25s ease,
+      padding .25s ease,
+      margin .25s ease!important;
+  }
+
+  .card.synopsis-open .mobile-synopsis{
+    max-height:900px!important;
+    height:auto!important;
+    opacity:1!important;
+    padding-top:12px!important;
+    padding-bottom:2px!important;
+    margin-top:0!important;
+    pointer-events:auto!important;
+  }
+
+  /* Desktop flipped card back stays hidden on phones. */
+  .card .card-back{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
