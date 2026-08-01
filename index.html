@@ -2321,6 +2321,31 @@ body.theme-misc{
  padding-top:10px!important;
 }
 
+
+.archiva-stage{position:absolute;z-index:2;right:1.5%;top:14px;width:min(62vw,980px);pointer-events:auto}
+.archiva-stage .home-mascot{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;display:block!important;object-fit:contain!important;object-position:right top!important}
+.archiva-stage .archiva-blink{position:absolute!important;top:0!important;right:0!important;opacity:0}
+.archiva-stage.is-blinking .archiva-open{opacity:0}
+.archiva-stage.is-blinking .archiva-blink{opacity:1}
+
+.archiva-speech{top:56px!important;right:30%!important;width:min(300px,22vw)!important;max-width:300px!important;transform-origin:right 58%!important}
+.archiva-speech::after{right:-12px!important;top:56%!important}
+.archiva-speech.visible{animation:archivaBubblePop .28s cubic-bezier(.2,.9,.2,1.08)}
+@keyframes archivaBubblePop{0%{opacity:0;transform:translateY(8px) scale(.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
+
+@media(min-width:651px){
+ .card-back{display:flex!important;flex-direction:column!important;min-height:0!important;overflow:hidden!important}
+ .card-back .synopsis{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding-right:10px!important;margin-bottom:12px!important;overscroll-behavior:contain}
+ .card-back .card-actions{position:relative!important;flex:0 0 auto!important;margin-top:auto!important;padding-top:12px!important;background:#0f1623!important;z-index:3}
+}
+@media(max-width:950px) and (orientation:landscape){
+ .archiva-stage{right:-4%;top:2px;width:min(76vw,720px)}
+ .archiva-speech{top:30px!important;right:37%!important;width:230px!important;max-width:230px!important}
+}
+@media(max-width:650px) and (orientation:portrait){
+ .archiva-stage,.archiva-speech{display:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -2360,7 +2385,10 @@ body.theme-misc{
   <div id="heroArt" class="hero-art" aria-hidden="true"></div>
   <div id="heroCollage" class="hero-collage" aria-hidden="true"></div>
   <div class="hero-feather" aria-hidden="true"></div>
-<img class="home-mascot" src="ARCHIVA-MASCOT-ver2.png" alt="Archiva mascot">
+<div class="archiva-stage" aria-label="Archiva mascot">
+  <img class="home-mascot archiva-open" src="ARCHIVA-MASCOT-ver2.png" alt="Archiva mascot">
+  <img class="home-mascot archiva-blink" src="ARCHIVA-MASCOT-ver2---BLINK.png" alt="" aria-hidden="true">
+</div>
 <div id="archivaSpeech" class="archiva-speech" role="status" aria-live="polite">
   <button id="archivaClose" class="archiva-close" type="button" aria-label="Close Archiva message">×</button>
   <div class="archiva-name">ARCHIVA</div>
@@ -3305,13 +3333,11 @@ $$(".tab").forEach(b=>b.onclick=()=>{
    from titles, dates, genres, ratings and statuses in Supabase.
    ========================================================= */
 
-const archivaMascot=document.querySelector(".home-mascot");
+const archivaMascot=document.querySelector(".archiva-stage");
 const archivaSpeech=document.getElementById("archivaSpeech");
 const archivaMessage=document.getElementById("archivaMessage");
 const archivaClose=document.getElementById("archivaClose");
 const archivaNext=document.getElementById("archivaNext");
-const ARCHIVA_OPEN_IMAGE="ARCHIVA-MASCOT-ver2.png";
-const ARCHIVA_BLINK_IMAGE="ARCHIVA-MASCOT-ver2---BLINK.png";
 let archivaBlinkTimer=null;
 let lastArchivaMessage="";
 
@@ -3464,32 +3490,25 @@ function hideArchivaMessage(){
 
 function scheduleArchivaBlink(){
   clearTimeout(archivaBlinkTimer);
-  if(!archivaVisible()){
-    if(archivaMascot)archivaMascot.src=ARCHIVA_OPEN_IMAGE;
-    return;
-  }
-
-  const delay=4000+Math.random()*4000;
+  archivaMascot?.classList.remove("is-blinking");
+  if(!archivaVisible())return;
+  const delay=3000+Math.random()*3000;
   archivaBlinkTimer=setTimeout(async()=>{
-    if(!archivaVisible())return scheduleArchivaBlink();
-
+    if(!archivaVisible()){scheduleArchivaBlink();return}
     const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-    archivaMascot.src=ARCHIVA_BLINK_IMAGE;
-    await wait(145);
-    archivaMascot.src=ARCHIVA_OPEN_IMAGE;
-    await wait(120);
-    archivaMascot.src=ARCHIVA_BLINK_IMAGE;
-    await wait(145);
-    archivaMascot.src=ARCHIVA_OPEN_IMAGE;
+    archivaMascot.classList.add("is-blinking");
+    await wait(170);
+    archivaMascot.classList.remove("is-blinking");
+    await wait(130);
+    archivaMascot.classList.add("is-blinking");
+    await wait(170);
+    archivaMascot.classList.remove("is-blinking");
     scheduleArchivaBlink();
   },delay);
 }
 
 if(archivaMascot){
-  const preloadBlink=new Image();
-  preloadBlink.src=ARCHIVA_BLINK_IMAGE;
-
-  archivaMascot.addEventListener("click",event=>{
+archivaMascot.addEventListener("click",event=>{
     event.stopPropagation();
     showArchivaMessage(true);
   });
