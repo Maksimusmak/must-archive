@@ -2386,6 +2386,75 @@ body.theme-misc{
   }
 }
 
+
+/* =========================================================
+   ARCHIVA BLINK ALIGNMENT — BOTH PNGS SHARE ONE FIXED STAGE
+   ========================================================= */
+.archiva-stage{
+  position:absolute!important;
+  z-index:2!important;
+  right:1.5%!important;
+  top:14px!important;
+  width:min(62vw,980px)!important;
+  aspect-ratio:3/2!important;
+  height:auto!important;
+  overflow:visible!important;
+  pointer-events:auto!important;
+}
+
+.archiva-stage .home-mascot,
+.hero[data-theme="all"] .archiva-stage .home-mascot{
+  position:absolute!important;
+  inset:0!important;
+  top:0!important;
+  right:0!important;
+  bottom:auto!important;
+  left:0!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+  translate:none!important;
+  scale:none!important;
+  object-fit:contain!important;
+  object-position:right top!important;
+  display:block!important;
+  filter:drop-shadow(0 24px 42px rgba(0,0,0,.36))!important;
+}
+
+.archiva-stage .archiva-open{
+  opacity:1!important;
+}
+
+.archiva-stage .archiva-blink{
+  opacity:0!important;
+}
+
+.archiva-stage.is-blinking .archiva-open{
+  opacity:0!important;
+}
+
+.archiva-stage.is-blinking .archiva-blink{
+  opacity:1!important;
+}
+
+@media(max-width:950px) and (orientation:landscape){
+  .archiva-stage{
+    right:-4%!important;
+    top:2px!important;
+    width:min(76vw,720px)!important;
+  }
+}
+
+@media(max-width:650px) and (orientation:portrait){
+  .archiva-stage{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>

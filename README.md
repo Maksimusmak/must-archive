@@ -1,8 +1,7 @@
-# MAKS MUST ARCHIVES — Mobile Collapse Fix
+# MAKS MUST ARCHIVES — Blink Alignment Fix
 
 Fixed:
-- Every mobile card now starts closed
-- The More panel opens only when that card's More button is tapped
-- Closing More collapses only that card
-- Desktop synopsis scrolling and fixed action buttons remain intact
-- All Archiva features remain included
+- Open-eye and blink PNGs now occupy the exact same fixed stage
+- Both layers use identical dimensions, positioning, object-fit and transform rules
+- Older mascot positioning rules can no longer shift one layer independently
+- All mobile collapse, speech bubble and synopsis fixes remain included
