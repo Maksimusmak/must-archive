@@ -2474,6 +2474,15 @@ body.theme-misc{
   }
 }
 
+
+.archiva-sprite{
+ position:absolute;top:14px;right:1.5%;
+ width:min(62vw,980px);
+ aspect-ratio:2/1.5;
+ background:url('ARCHIVA-BLINK-SPRITESHEET.png') left top/200% 100% no-repeat;
+}
+.archiva-sprite.blink{background-position:right top;}
+
 </style>
 </head>
 <body>
@@ -2513,10 +2522,7 @@ body.theme-misc{
   <div id="heroArt" class="hero-art" aria-hidden="true"></div>
   <div id="heroCollage" class="hero-collage" aria-hidden="true"></div>
   <div class="hero-feather" aria-hidden="true"></div>
-<div class="archiva-stage" aria-label="Archiva mascot">
-  <img class="home-mascot archiva-open" src="ARCHIVA-MASCOT-ver2.png" alt="Archiva mascot">
-  <img class="home-mascot archiva-blink" src="ARCHIVA-MASCOT-ver2---BLINK.png" alt="" aria-hidden="true">
-</div>
+<div class="archiva-sprite" aria-label="Archiva mascot"></div>
 <div id="archivaSpeech" class="archiva-speech" role="status" aria-live="polite">
   <button id="archivaClose" class="archiva-close" type="button" aria-label="Close Archiva message">×</button>
   <div class="archiva-name">ARCHIVA</div>
@@ -3616,13 +3622,27 @@ function hideArchivaMessage(){
   archivaSpeech?.classList.remove("visible");
 }
 
+
 function scheduleArchivaBlink(){
-clearTimeout(archivaBlinkTimer);
-const stage=document.querySelector('.archiva-stage');
-if(!stage)return;
-const run=()=>{stage.classList.add('is-blinking');setTimeout(()=>{stage.classList.remove('is-blinking');setTimeout(()=>{stage.classList.add('is-blinking');setTimeout(()=>{stage.classList.remove('is-blinking');scheduleArchivaBlink();},300);},180);},300);};
-archivaBlinkTimer=setTimeout(run,1000);
+ clearTimeout(archivaBlinkTimer);
+ const s=document.querySelector('.archiva-sprite');
+ if(!s)return;
+ const run=()=>{
+  s.classList.add('blink');
+  setTimeout(()=>{
+   s.classList.remove('blink');
+   setTimeout(()=>{
+    s.classList.add('blink');
+    setTimeout(()=>{
+      s.classList.remove('blink');
+      scheduleArchivaBlink();
+    },120);
+   },90);
+  },120);
+ };
+ archivaBlinkTimer=setTimeout(run,3000+Math.random()*3000);
 }
+
 
 if(archivaMascot){
 archivaMascot.addEventListener("click",event=>{
