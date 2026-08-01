@@ -3620,8 +3620,8 @@ function scheduleArchivaBlink(){
 clearTimeout(archivaBlinkTimer);
 const stage=document.querySelector('.archiva-stage');
 if(!stage)return;
-const run=()=>{stage.classList.add('is-blinking');setTimeout(()=>{stage.classList.remove('is-blinking');setTimeout(()=>{stage.classList.add('is-blinking');setTimeout(()=>{stage.classList.remove('is-blinking');scheduleArchivaBlink();},120);},90);},120);};
-archivaBlinkTimer=setTimeout(run,3000+Math.random()*3000);
+const run=()=>{stage.classList.add('is-blinking');setTimeout(()=>{stage.classList.remove('is-blinking');setTimeout(()=>{stage.classList.add('is-blinking');setTimeout(()=>{stage.classList.remove('is-blinking');scheduleArchivaBlink();},300);},180);},300);};
+archivaBlinkTimer=setTimeout(run,1000);
 }
 
 if(archivaMascot){
