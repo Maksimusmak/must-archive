@@ -1,9 +1,8 @@
-# MAKS MUST ARCHIVES — Archiva Across All Sections
+# MAKS MUST ARCHIVES — Login + Hero Polish
 
 Changes:
-- Cover cluster moved further left so all three cards are visible
-- Archiva speech panel appears on All, Anime, Movies, TV, Games and Misc
-- Section-specific messages are generated when each category is selected
-- Messages also reference counts, favourites, completed items and random titles in that section
-- Speech remains hidden on portrait mobile
-- All sprite blinking and archive features remain included
+- Added blinking Archiva sprite to the login page
+- Uses the same working sprite-sheet blink system
+- Reduced the large gap below Collection Progress
+- Removed the faint horizontal divider line above media-type selection
+- Kept favicon support and all prior archive features
