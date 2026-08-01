@@ -3110,6 +3110,171 @@ hr{
   }
 }
 
+
+/* =========================================================
+   CATEGORY HERO COMPOSITION — TIGHTER, BALANCED, CLEAN
+   Applies to Anime / Movies / TV / Games / Misc only.
+   ========================================================= */
+
+@media(min-width:951px){
+  /* Reduce the overall category hero height and remove dead space. */
+  .hero:not([data-theme="all"]){
+    min-height:520px!important;
+    height:auto!important;
+    padding-top:0!important;
+    padding-bottom:12px!important;
+    margin-bottom:0!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-inner{
+    min-height:500px!important;
+    height:auto!important;
+    padding-top:30px!important;
+    padding-bottom:8px!important;
+    align-items:flex-start!important;
+  }
+
+  /* Bring the complete copy block upward. */
+  .hero:not([data-theme="all"]) .hero-content{
+    width:100%!important;
+    padding-top:48px!important;
+    padding-bottom:0!important;
+    margin:0!important;
+    transform:none!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-copy{
+    width:min(53%,720px)!important;
+    max-width:720px!important;
+    min-width:500px!important;
+    margin:0!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-kicker,
+  .hero:not([data-theme="all"]) #heroKicker{
+    margin-bottom:14px!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-title,
+  .hero:not([data-theme="all"]) #heroTitle{
+    margin-top:0!important;
+    margin-bottom:14px!important;
+    line-height:.88!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-description,
+  .hero:not([data-theme="all"]) #heroDescription{
+    max-width:680px!important;
+    margin-bottom:18px!important;
+    line-height:1.55!important;
+  }
+
+  /* Keep progress close to the copy, like the approved visual. */
+  .hero:not([data-theme="all"]) .progress-panel,
+  .hero:not([data-theme="all"]) .hero-progress,
+  .hero:not([data-theme="all"]) .completion-panel,
+  .hero:not([data-theme="all"]) .progress-card{
+    width:min(620px,48vw)!important;
+    max-width:620px!important;
+    min-width:420px!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+  }
+
+  /* Move Archiva down slightly and keep her balanced on the right. */
+  .hero:not([data-theme="all"]) .archiva-sprite{
+    top:42px!important;
+    right:-1%!important;
+    width:min(50vw,790px)!important;
+    max-width:790px!important;
+    z-index:2!important;
+  }
+
+  /* Pull tabs and filters closer to the hero. */
+  .hero:not([data-theme="all"]) + .shell,
+  .hero:not([data-theme="all"]) + main,
+  .hero:not([data-theme="all"]) + section{
+    margin-top:0!important;
+  }
+
+  .archive-controls{
+    margin-top:4px!important;
+    padding-top:0!important;
+  }
+}
+
+/* Medium desktop and tablet landscape */
+@media(min-width:951px) and (max-width:1250px){
+  .hero:not([data-theme="all"]){
+    min-height:480px!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-inner{
+    min-height:460px!important;
+    padding-top:20px!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-content{
+    padding-top:34px!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-copy{
+    width:56%!important;
+    min-width:450px!important;
+  }
+
+  .hero:not([data-theme="all"]) .archiva-sprite{
+    top:48px!important;
+    right:-5%!important;
+    width:min(47vw,670px)!important;
+  }
+}
+
+/* Landscape phones: compact hero with no giant lower gap. */
+@media(max-width:950px) and (orientation:landscape){
+  .hero:not([data-theme="all"]){
+    min-height:380px!important;
+    padding-bottom:4px!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-inner{
+    min-height:370px!important;
+    padding-top:8px!important;
+    padding-bottom:0!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-content{
+    padding-top:20px!important;
+    padding-bottom:0!important;
+    margin-bottom:0!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-copy{
+    width:56%!important;
+    max-width:56%!important;
+  }
+
+  .hero:not([data-theme="all"]) .archiva-sprite{
+    top:30px!important;
+    right:-8%!important;
+    width:min(58vw,560px)!important;
+  }
+
+  .hero:not([data-theme="all"]) .progress-panel,
+  .hero:not([data-theme="all"]) .hero-progress,
+  .hero:not([data-theme="all"]) .completion-panel,
+  .hero:not([data-theme="all"]) .progress-card{
+    width:100%!important;
+    max-width:420px!important;
+    min-width:0!important;
+    margin-bottom:0!important;
+  }
+
+  .archive-controls{
+    margin-top:0!important;
+  }
+}
+
 </style>
 
 <link rel="icon" href="favicon.ico" sizes="any">
