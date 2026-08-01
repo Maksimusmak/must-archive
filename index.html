@@ -2122,6 +2122,90 @@ body.theme-misc{
   }
 }
 
+
+/* =========================================================
+   ARCHIVA HERO POSITIONING — TOP ALIGNED + LARGER
+   ========================================================= */
+
+/* Desktop: pin Archiva near the top of the hero and enlarge her. */
+.hero[data-theme="all"] .home-mascot{
+  top:14px!important;
+  bottom:auto!important;
+  right:1.5%!important;
+  width:min(62vw,980px)!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:right top!important;
+}
+
+/* Keep the speech bubble in the mascot zone, away from the title column. */
+.archiva-speech{
+  top:48px!important;
+  right:34%!important;
+  width:min(300px,22vw)!important;
+  max-width:300px!important;
+}
+
+/* Medium desktops/tablets */
+@media(max-width:1200px){
+  .hero[data-theme="all"] .home-mascot{
+    top:10px!important;
+    right:-1%!important;
+    width:min(66vw,900px)!important;
+  }
+
+  .archiva-speech{
+    top:42px!important;
+    right:31%!important;
+    width:260px!important;
+    max-width:260px!important;
+  }
+}
+
+/* Landscape phones: make Archiva much larger and keep her top-aligned. */
+@media(max-width:950px) and (orientation:landscape){
+  .hero[data-theme="all"] .home-mascot{
+    display:block!important;
+    top:2px!important;
+    right:-4%!important;
+    bottom:auto!important;
+    width:min(76vw,720px)!important;
+    max-width:none!important;
+  }
+
+  .archiva-speech{
+    top:24px!important;
+    right:35%!important;
+    width:230px!important;
+    max-width:230px!important;
+    font-size:.74rem!important;
+  }
+}
+
+/* Short landscape screens need extra size. */
+@media(max-height:600px) and (orientation:landscape){
+  .hero[data-theme="all"] .home-mascot{
+    top:0!important;
+    right:-6%!important;
+    width:min(82vw,760px)!important;
+  }
+
+  .archiva-speech{
+    top:18px!important;
+    right:38%!important;
+    width:215px!important;
+    max-width:215px!important;
+  }
+}
+
+/* Portrait mobile remains clean and uncluttered. */
+@media(max-width:650px) and (orientation:portrait){
+  .hero[data-theme="all"] .home-mascot,
+  .archiva-speech{
+    display:none!important;
+  }
+}
+
 </style>
 </head>
 <body>

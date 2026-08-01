@@ -1,16 +1,10 @@
-# MAKS MUST ARCHIVES — Archiva Alive
+# MAKS MUST ARCHIVES — Archiva Top-Aligned
 
-New:
-- Archiva performs two quick blinks in succession every 7–15 seconds
-- Uses the supplied ARCHIVA-MASCOT-ver2---BLINK.png
-- Friendly speech bubble appears once per visit
-- Click Archiva or “Another thought” for a new message
-- Messages rotate between:
-  - gentle backlog reminders
-  - positive encouragement
-  - automatically generated archive facts based on year, genre, rating and collection makeup
-- No external AI/API key is required
-- Messages automatically work with newly added titles from Supabase
-- Bubble can be closed for the current browser session
-- Hidden on portrait mobile along with Archiva
-- Misc floating covers are enabled
+Changes:
+- Archiva is pinned near the top of the hero
+- Archiva is larger on desktop
+- Archiva is significantly larger on landscape phones
+- Speech bubble is kept in the right-side mascot area
+- Speech bubble avoids the MAKS MUST ARCHIVES title
+- Portrait mobile still hides Archiva and her bubble
+- All blink, motivation, archive facts, footer, database and mobile features remain included
