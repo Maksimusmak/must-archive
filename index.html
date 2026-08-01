@@ -2461,6 +2461,19 @@ body.theme-misc{
 .archiva-open{opacity:1}.archiva-blink{opacity:0}
 .archiva-stage.is-blinking .archiva-open{opacity:0}
 .archiva-stage.is-blinking .archiva-blink{opacity:1}
+
+/* Move desktop speech bubble left of Archiva's face */
+@media (min-width:951px){
+  .archiva-speech{
+    right:42%!important;
+    top:56px!important;
+  }
+  .archiva-speech::after{
+    right:-12px!important;
+    top:58%!important;
+  }
+}
+
 </style>
 </head>
 <body>
