@@ -2857,6 +2857,145 @@ body.theme-misc{
   }
 }
 
+
+/* =========================================================
+   CLEAN HERO — NO COVER CARDS, NO DIVIDER, SAFE ARCHIVA
+   ========================================================= */
+.hero-collage,
+.hero .hero-collage,
+.hero[data-theme="all"] .hero-collage,
+.hero:not([data-theme="all"]) .hero-collage{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+
+.hero .archiva-sprite{
+  top:8px!important;
+  right:-1%!important;
+  width:min(55vw,860px)!important;
+  z-index:2!important;
+}
+
+.hero .hero-content,
+.hero .hero-copy,
+.hero .progress-panel,
+.hero .hero-progress,
+.hero .completion-panel{
+  position:relative!important;
+  z-index:4!important;
+}
+
+@media(min-width:951px){
+  .hero:not([data-theme="all"]) .hero-content{
+    padding-right:46%!important;
+  }
+
+  .hero:not([data-theme="all"]) .progress-panel,
+  .hero:not([data-theme="all"]) .hero-progress,
+  .hero:not([data-theme="all"]) .completion-panel{
+    width:min(620px,100%)!important;
+    max-width:100%!important;
+  }
+
+  .hero:not([data-theme="all"]) .archiva-sprite{
+    right:-2%!important;
+    width:min(52vw,820px)!important;
+  }
+}
+
+@media(max-width:950px) and (orientation:landscape){
+  .hero .archiva-sprite{
+    top:2px!important;
+    right:-8%!important;
+    width:min(62vw,610px)!important;
+  }
+
+  .hero .hero-content{
+    padding-right:43%!important;
+  }
+
+  .hero .progress-panel,
+  .hero .hero-progress,
+  .hero .completion-panel{
+    width:100%!important;
+    max-width:440px!important;
+  }
+}
+
+@media(max-width:650px) and (orientation:portrait){
+  .hero .archiva-sprite{
+    display:none!important;
+  }
+
+  .hero .hero-content{
+    padding-right:0!important;
+  }
+}
+
+.hero,
+.hero-inner,
+.hero-content,
+.hero-shell,
+.archive-controls,
+.archive-toolbar,
+.tabs,
+.filters-wrap,
+main,
+main > section{
+  border-top:0!important;
+  border-bottom-color:transparent!important;
+  box-shadow:none!important;
+}
+
+.hero::before,
+.hero::after,
+.hero-inner::before,
+.hero-inner::after,
+.hero-content::before,
+.hero-content::after,
+.hero-shell::before,
+.hero-shell::after,
+.archive-controls::before,
+.archive-controls::after,
+.archive-toolbar::before,
+.archive-toolbar::after,
+.tabs::before,
+.tabs::after{
+  border:0!important;
+  background:none!important;
+  box-shadow:none!important;
+  content:none!important;
+  display:none!important;
+}
+
+.hero-divider,
+.section-divider,
+.archive-divider,
+hr{
+  display:none!important;
+  border:0!important;
+  height:0!important;
+  margin:0!important;
+}
+
+.hero{
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+}
+
+.hero-inner,
+.hero-content{
+  padding-bottom:8px!important;
+  margin-bottom:0!important;
+}
+
+.archive-controls{
+  margin-top:0!important;
+  padding-top:0!important;
+}
+
 </style>
 
 <link rel="icon" href="favicon.ico" sizes="any">
