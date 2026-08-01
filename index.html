@@ -2996,6 +2996,120 @@ hr{
   padding-top:0!important;
 }
 
+
+/* =========================================================
+   CATEGORY PAGE LAYOUT REPAIR
+   Restore normal text/progress widths without Archiva overlap.
+   ========================================================= */
+
+/* Undo the rule that crushed category content into a narrow column. */
+@media(min-width:951px){
+  .hero:not([data-theme="all"]) .hero-content{
+    padding-right:0!important;
+    width:100%!important;
+    max-width:none!important;
+  }
+
+  /* Keep copy naturally sized on the left. */
+  .hero:not([data-theme="all"]) .hero-copy{
+    width:min(52%,720px)!important;
+    max-width:720px!important;
+    min-width:520px!important;
+  }
+
+  /* Keep kicker, title and intro at normal readable widths. */
+  .hero:not([data-theme="all"]) .hero-kicker,
+  .hero:not([data-theme="all"]) .hero-title,
+  .hero:not([data-theme="all"]) .hero-description,
+  .hero:not([data-theme="all"]) #heroKicker,
+  .hero:not([data-theme="all"]) #heroTitle,
+  .hero:not([data-theme="all"]) #heroDescription{
+    width:auto!important;
+    max-width:720px!important;
+    min-width:0!important;
+    white-space:normal!important;
+    word-break:normal!important;
+    overflow-wrap:normal!important;
+  }
+
+  /* Progress bar stays wide and readable. */
+  .hero:not([data-theme="all"]) .progress-panel,
+  .hero:not([data-theme="all"]) .hero-progress,
+  .hero:not([data-theme="all"]) .completion-panel,
+  .hero:not([data-theme="all"]) .progress-card{
+    width:min(620px,48vw)!important;
+    max-width:620px!important;
+    min-width:420px!important;
+  }
+
+  /* Archiva remains on the right and clear of the text/progress area. */
+  .hero:not([data-theme="all"]) .archiva-sprite{
+    top:8px!important;
+    right:-3%!important;
+    width:min(48vw,760px)!important;
+    z-index:2!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-content,
+  .hero:not([data-theme="all"]) .hero-copy,
+  .hero:not([data-theme="all"]) .progress-panel,
+  .hero:not([data-theme="all"]) .hero-progress,
+  .hero:not([data-theme="all"]) .completion-panel,
+  .hero:not([data-theme="all"]) .progress-card{
+    position:relative!important;
+    z-index:4!important;
+  }
+}
+
+/* Mid-size desktop/tablet: reduce mascot before squeezing copy. */
+@media(min-width:951px) and (max-width:1250px){
+  .hero:not([data-theme="all"]) .hero-copy{
+    width:56%!important;
+    min-width:460px!important;
+  }
+
+  .hero:not([data-theme="all"]) .archiva-sprite{
+    right:-7%!important;
+    width:min(46vw,650px)!important;
+  }
+
+  .hero:not([data-theme="all"]) .progress-panel,
+  .hero:not([data-theme="all"]) .hero-progress,
+  .hero:not([data-theme="all"]) .completion-panel,
+  .hero:not([data-theme="all"]) .progress-card{
+    width:min(560px,52vw)!important;
+    min-width:380px!important;
+  }
+}
+
+/* Landscape mobile: preserve readable copy and progress. */
+@media(max-width:950px) and (orientation:landscape){
+  .hero:not([data-theme="all"]) .hero-content{
+    padding-right:0!important;
+    width:100%!important;
+  }
+
+  .hero:not([data-theme="all"]) .hero-copy{
+    width:55%!important;
+    max-width:55%!important;
+    min-width:0!important;
+  }
+
+  .hero:not([data-theme="all"]) .progress-panel,
+  .hero:not([data-theme="all"]) .hero-progress,
+  .hero:not([data-theme="all"]) .completion-panel,
+  .hero:not([data-theme="all"]) .progress-card{
+    width:100%!important;
+    max-width:420px!important;
+    min-width:0!important;
+  }
+
+  .hero:not([data-theme="all"]) .archiva-sprite{
+    right:-10%!important;
+    width:min(58vw,560px)!important;
+  }
+}
+
 </style>
 
 <link rel="icon" href="favicon.ico" sizes="any">
