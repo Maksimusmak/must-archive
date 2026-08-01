@@ -2712,6 +2712,59 @@ body.theme-misc{
   }
 }
 
+
+/* =========================================================
+   ARCHIVA ALL-SECTIONS MESSAGE + COVER POSITIONING
+   ========================================================= */
+
+/* Shift category cover cluster further left so all three cards are visible. */
+.hero:not([data-theme="all"]) .hero-collage{
+  right:38%!important;
+}
+
+@media(max-width:1180px){
+  .hero:not([data-theme="all"]) .hero-collage{
+    right:39%!important;
+  }
+}
+
+@media(max-width:950px) and (orientation:landscape){
+  .hero:not([data-theme="all"]) .hero-collage{
+    right:42%!important;
+  }
+}
+
+/* Archiva message panel appears on every section. */
+.hero .archiva-speech{
+  display:block!important;
+  left:0!important;
+  right:auto!important;
+  top:22px!important;
+  width:min(520px,42vw)!important;
+  max-width:520px!important;
+}
+
+/* Keep it hidden only on portrait mobile. */
+@media(max-width:650px) and (orientation:portrait){
+  .hero .archiva-speech{
+    display:none!important;
+  }
+}
+
+/* Category-page message positioning remains aligned over the hero text. */
+.hero:not([data-theme="all"]) .archiva-speech{
+  top:22px!important;
+}
+
+@media(max-width:950px) and (orientation:landscape){
+  .hero .archiva-speech{
+    left:14px!important;
+    top:10px!important;
+    width:min(430px,55vw)!important;
+    max-width:430px!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3197,7 +3250,7 @@ async function loadItems(){
   if(error){console.error(error);syncLabel("Sync error — check table setup");return}
   items=data||[];fillGenres();render();syncLabel(`Synced: ${user.email}`);
   scheduleArchivaBlink();
-  if(category==="all"&&!sessionStorage.getItem("archivaBubbleClosed")){
+  if(!sessionStorage.getItem("archivaBubbleClosed")){
     window.setTimeout(()=>showArchivaMessage(false),700);
   }
 }
@@ -3681,12 +3734,10 @@ $$(".tab").forEach(b=>b.onclick=()=>{
   applyCategoryHero(category);
   updateAllHeroCollage();
   render();
-  if(category==="all"){
-    if(!sessionStorage.getItem("archivaBubbleClosed"))window.setTimeout(()=>showArchivaMessage(false),350);
-    scheduleArchivaBlink();
-  }else{
-    hideArchivaMessage();
+  if(!sessionStorage.getItem("archivaBubbleClosed")){
+    window.setTimeout(()=>showArchivaMessage(true),300);
   }
+  scheduleArchivaBlink();
 });
 ["search","status","genre","sort"].forEach(id=>document.getElementById(id).addEventListener("input",render));
 
@@ -3817,12 +3868,77 @@ function positiveMessages(){
   return messages;
 }
 
+
+function categoryArchivaMessages(){
+  const categoryLabels={
+    all:"archive",
+    anime:"anime",
+    movie:"movie",
+    tv:"TV",
+    game:"game",
+    misc:"misc"
+  };
+
+  const scoped=category==="all" ? items : items.filter(item=>item.category===category);
+  const unfinished=scoped.filter(item=>item.status!=="completed");
+  const completed=scoped.filter(item=>item.status==="completed");
+  const favourites=scoped.filter(item=>item.favourite);
+  const randomItem=scoped.length ? chooseOne(scoped) : null;
+
+  const messages={
+    all:[
+      "Everything is in one place, Mak. Pick whatever matches your mood.",
+      "Your full archive is ready. No pressure—just possibilities.",
+      "A little from every world, all waiting here for you."
+    ],
+    anime:[
+      "Anime mode activated. Time for a new world, Mak?",
+      "Your anime archive has plenty of adventures waiting.",
+      randomItem ? `“${randomItem.title}” could be tonight’s anime pick.` : "Add an anime and I’ll keep it safe here."
+    ],
+    movie:[
+      "Movie night energy detected. Popcorn may be required.",
+      "Your movie archive is ready for a cinematic evening.",
+      randomItem ? `“${randomItem.title}” is waiting in the wings.` : "Add a movie and I’ll keep the projector warm."
+    ],
+    tv:[
+      "TV mode selected. One episode can never hurt… probably.",
+      "Your shows are queued and ready for the next chapter.",
+      randomItem ? `“${randomItem.title}” might be worth revisiting.` : "Add a show and I’ll track it for you."
+    ],
+    game:[
+      "Game mode engaged. Which world are we entering today?",
+      "Your game archive is ready for another adventure.",
+      randomItem ? `“${randomItem.title}” is waiting for Player One.` : "Add a game and I’ll keep the save slot ready."
+    ],
+    misc:[
+      "Misc mode: books, figures, music and every shiny thing in between.",
+      "This is the treasure drawer of the archive, Mak.",
+      randomItem ? `You’ve still got your eye on “${randomItem.title}”.` : "Add anything interesting here—I don’t judge."
+    ]
+  };
+
+  const pool=[...(messages[category]||messages.all)];
+
+  if(unfinished.length){
+    pool.push(`You have ${unfinished.length} ${categoryLabels[category]} ${unfinished.length===1?"item":"items"} still waiting.`);
+  }
+  if(completed.length){
+    pool.push(`Nice work—${completed.length} ${completed.length===1?"item is":"items are"} already completed here.`);
+  }
+  if(favourites.length){
+    pool.push(`${favourites.length} favourite ${favourites.length===1?"pick lives":"picks live"} in this section.`);
+  }
+
+  return pool.filter(Boolean);
+}
+
 function buildArchivaMessages(){
   const pool=[
-    ...archiveFacts(),
+    ...categoryArchivaMessages(),
+    ...categoryArchivaMessages(),
     ...archiveFacts(),
     ...gentlePrompts(),
-    ...positiveMessages(),
     ...positiveMessages()
   ].filter(Boolean);
 
@@ -3830,7 +3946,7 @@ function buildArchivaMessages(){
 }
 
 function showArchivaMessage(forceNew=false){
-  if(!archivaSpeech||!archivaMessage||!user||category!=="all")return;
+  if(!archivaSpeech||!archivaMessage||!user)return;
 
   const messages=buildArchivaMessages();
   let message=chooseOne(messages);

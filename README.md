@@ -1,11 +1,9 @@
-# MAKS MUST ARCHIVES — Archiva + Floating Covers
+# MAKS MUST ARCHIVES — Archiva Across All Sections
 
 Changes:
-- Three cover cards appear behind Archiva on Anime, Movies, TV, Games and Misc pages
-- Cover cluster moved left into the open area beside her head
-- Covers reduced by 30%
-- Existing three-card playing-card arrangement preserved
-- Archiva remains in front of the cards
-- Home/All page remains mascot-only
-- Landscape mobile keeps a compact version
-- Portrait mobile hides both Archiva and decorative hero covers
+- Cover cluster moved further left so all three cards are visible
+- Archiva speech panel appears on All, Anime, Movies, TV, Games and Misc
+- Section-specific messages are generated when each category is selected
+- Messages also reference counts, favourites, completed items and random titles in that section
+- Speech remains hidden on portrait mobile
+- All sprite blinking and archive features remain included
