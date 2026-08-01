@@ -3275,6 +3275,153 @@ hr{
   }
 }
 
+
+/* =========================================================
+   HOME PAGE — LANDSCAPE MOBILE REPAIR
+   Keep the homepage readable without affecting desktop/category pages.
+   ========================================================= */
+@media(max-width:950px) and (orientation:landscape){
+
+  .hero[data-theme="all"]{
+    min-height:390px!important;
+    height:auto!important;
+    padding:0!important;
+    margin:0!important;
+  }
+
+  .hero[data-theme="all"] .hero-inner{
+    min-height:380px!important;
+    height:auto!important;
+    padding:10px 14px 4px!important;
+    align-items:flex-start!important;
+  }
+
+  .hero[data-theme="all"] .hero-content{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    padding:74px 42% 0 14px!important;
+    margin:0!important;
+    transform:none!important;
+  }
+
+  .hero[data-theme="all"] .hero-copy{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+
+  .hero[data-theme="all"] .hero-kicker,
+  .hero[data-theme="all"] #heroKicker{
+    width:auto!important;
+    max-width:100%!important;
+    margin:0 0 8px!important;
+    white-space:normal!important;
+    line-height:1.2!important;
+  }
+
+  .hero[data-theme="all"] .hero-title,
+  .hero[data-theme="all"] #heroTitle{
+    width:auto!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0 0 10px!important;
+    font-size:clamp(2rem,6.4vw,3.6rem)!important;
+    line-height:.82!important;
+    white-space:normal!important;
+    word-break:normal!important;
+    overflow-wrap:normal!important;
+  }
+
+  .hero[data-theme="all"] .hero-description,
+  .hero[data-theme="all"] #heroDescription{
+    width:auto!important;
+    max-width:420px!important;
+    margin:0 0 12px!important;
+    font-size:.76rem!important;
+    line-height:1.45!important;
+    white-space:normal!important;
+    word-break:normal!important;
+    overflow-wrap:normal!important;
+  }
+
+  .hero[data-theme="all"] .progress-panel,
+  .hero[data-theme="all"] .hero-progress,
+  .hero[data-theme="all"] .completion-panel,
+  .hero[data-theme="all"] .progress-card{
+    width:100%!important;
+    max-width:430px!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+
+  /* Keep Archiva safely on the right without covering the copy. */
+  .hero[data-theme="all"] .archiva-sprite{
+    top:22px!important;
+    right:-6%!important;
+    width:min(54vw,520px)!important;
+    max-width:520px!important;
+    z-index:2!important;
+  }
+
+  /* Compact message panel above the copy. */
+  .hero[data-theme="all"] .archiva-speech{
+    left:14px!important;
+    right:auto!important;
+    top:8px!important;
+    width:min(410px,53vw)!important;
+    max-width:410px!important;
+    padding:10px 38px 10px 12px!important;
+    z-index:6!important;
+  }
+
+  .hero[data-theme="all"] .archiva-speech p{
+    font-size:.72rem!important;
+    line-height:1.35!important;
+    -webkit-line-clamp:2!important;
+  }
+
+  /* Pull navigation and filters close to the hero. */
+  .hero[data-theme="all"] + .shell,
+  .hero[data-theme="all"] + main,
+  .hero[data-theme="all"] + section{
+    margin-top:0!important;
+  }
+
+  .archive-controls{
+    margin-top:0!important;
+    padding-top:0!important;
+  }
+}
+
+/* Extra-short landscape phones */
+@media(max-height:500px) and (orientation:landscape){
+  .hero[data-theme="all"]{
+    min-height:350px!important;
+  }
+
+  .hero[data-theme="all"] .hero-inner{
+    min-height:340px!important;
+  }
+
+  .hero[data-theme="all"] .hero-content{
+    padding-top:64px!important;
+  }
+
+  .hero[data-theme="all"] .archiva-sprite{
+    top:18px!important;
+    right:-8%!important;
+    width:min(52vw,470px)!important;
+  }
+
+  .hero[data-theme="all"] .hero-description,
+  .hero[data-theme="all"] #heroDescription{
+    font-size:.7rem!important;
+    line-height:1.35!important;
+  }
+}
+
 </style>
 
 <link rel="icon" href="favicon.ico" sizes="any">
