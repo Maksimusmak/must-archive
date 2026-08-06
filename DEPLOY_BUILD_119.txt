@@ -1,0 +1,16 @@
+MAKS Archives — Beta v1.1.9 · Build 119
+
+UPLOAD INSTRUCTIONS
+1. Delete or replace any older Pages workflow in .github/workflows.
+2. Upload every item from this ZIP to the repository root, including the hidden .github folder.
+3. Confirm Settings > Pages > Source is set to GitHub Actions.
+4. Commit the files to the main branch.
+5. Open Actions and run "Deploy MAKS Archives to GitHub Pages" if it does not start automatically.
+
+This workflow uses:
+- actions/checkout@v5
+- actions/configure-pages@v5
+- actions/upload-artifact@v7
+- actions/deploy-pages@v4
+- 20-minute Pages deployment timeout
+- concurrency control to cancel stale runs
