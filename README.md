@@ -7,3 +7,5 @@ Changes:
 - Removed the faint horizontal divider line above media-type selection
 - Kept favicon support and all prior archive features
 
+- Peace
+
