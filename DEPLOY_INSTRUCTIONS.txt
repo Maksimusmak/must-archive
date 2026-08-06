@@ -1,0 +1,10 @@
+MAKS Archives Build 118 deployment
+
+IMPORTANT: Upload the CONTENTS of this ZIP directly to the root of your GitHub Pages repository.
+The repository root should contain index.html itself — not another folder containing index.html.
+
+After uploading:
+1. Commit the changed files.
+2. Wait 1–3 minutes for GitHub Pages to rebuild.
+3. Open the site in a private/incognito tab, or refresh Safari once.
+4. Confirm the footer shows Beta v1.1.8 · Build 118 and the Books tab appears.
